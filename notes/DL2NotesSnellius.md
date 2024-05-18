@@ -33,27 +33,34 @@ IdentityFile ~/.ssh/gitKey
 ```
 Then, open the private Github repo settings and add the generated public key as a deploy key. Now you can access the private repo from Snellius.
 
-### Create an environment
-```
-TODO
-```
 ## Submitting jobs
 
 Submitting the job:
 ```
 sbatch my_job.sh
 ```
-Cancel the job:
-```
-scancel [jobid]
-```
-Check what is going on with a job:
+Check what is going on with a job ():
 ```
 scontrol show job [jobid]
 ```
-Interactive session:
+Cancel a job:
+```
+scancel [jobid]
+```
+Run an interactive session (you still need to wait at the queue for it to start):
+```
+srun  --partition=gpu --gres=gpu:1 --cpus-per-task=9 --gpus=1 --job-name=RunPaper --ntasks=1 --time=01:00:00 --mem=32000M --pty /bin/bash
+```
+
+### Creating an environment
 ```
 TODO
+<!-- sbatch ./jobs/install_env.job -->
+<!--  -->
+conda create --name instdiff1 python=3.8 -y
+conda activate instdiff1
+pip install -r requirements.txt
+<!-- conda env export > environment.yml -->
 ```
 ### Exit Snellius server
 ```
