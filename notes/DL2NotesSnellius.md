@@ -20,6 +20,19 @@ Copy your keys to `C:\Users\<User>\.ssh`. Open VSCode. From the blue/green butto
 ```
 ssh -vvv -i C:\Users\<User>\.ssh\dl2Key scur0411@snellius.surf.nl
 ```
+### Clone a private Github repo in Snellius (only one person needs to do that):
+Create a key in Snellius:
+```
+ssh-keygen -f ~/.ssh/gitKey
+```
+Add the host and key to the config file:
+```
+Host github.com
+HostName github.com
+IdentityFile ~/.ssh/gitKey
+```
+Then, open the private Github repo settings and add the generated public key as a deploy key. Now you can access the private repo from Snellius.
+
 ### Create an environment
 ```
 TODO
