@@ -1,9 +1,3 @@
-
-*ToDo: Add images like:*
-
-![Description of Image](../output_tests/gc7.5-seed0-alpha0.8/0_xl_s0.4_n20.png)
-
-
 ## A Deep Dive into InstanceDiffusion
 
 ### **Introduction**
@@ -89,16 +83,73 @@ We conducted a detailed analysis of the model's iterative generation process, em
 
 #### **Experimental Results**
 
-To validate our investigation, we conducted a series of experiments using the COCO dataset and other benchmark datasets. Our primary focus was on scenarios involving overlapping instances and iterative generation using points, scribbles, and bounding boxes.
+To validate our investigation, we conducted a series of experiments using several distinct visal conditions and semantic concepts. Our primary focus was on scenarios involving overlapping instances and iterative generation using points, scribbles, and bounding boxes.
+
+<!-- ![Apple and pear bounding boxes](../output_tests/gc7.5-seed0-alpha0.8/14_boxes.png)
+![Apple and pear](../output_tests/gc7.5-seed0-alpha0.8/65_xl_s0.4_n20.png)
+![Apple in front of a pear (merged fruits) bounding boxes](../output_tests/gc7.5-seed0-alpha0.8/70_boxes.png)
+![Apple in front of a pear (merged fruits)](../output_tests/gc7.5-seed0-alpha0.8/14_xl_s0.4_n20.png) -->
+
+<p style="text-align: center;">
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/14_boxes.png" alt="Apple and pear bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/65_xl_s0.4_n20.png" alt="Apple and pear" width="30%" style="margin: 0 1%;"/>
+</p>
+
+<p style="text-align: center;">
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/70_boxes.png" alt="Apple in front of a pear (merged fruits) bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/14_xl_s0.4_n20.png" alt="Apple in front of a pear (merged fruits)" width="30%" style="margin: 0 1%;"/>
+</p>
 
 In our first set of experiments, we designed scenarios where instances were defined by points, scribbles, and bounding boxes. By iteratively generating images with varying sequences and proximities of these instances, we observed how well the model maintained clarity and distinct features. Our findings revealed significant weaknesses in scenarios involving overlapping instances. For example, when generating a sequence of objects defined by points, the model often blended features, leading to unclear boundaries and artifacts. Similar issues were observed with scribbles and bounding boxes, particularly when objects were closely positioned.
 
+<!-- ![Vase abd flower bounding boxes](../output_tests/gc7.5-seed0-alpha0.8/28_boxes.png)
+
+![Vase in front of a flower](../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png)
+
+![Vase behind a flower](../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png) -->
+
+<p style="text-align: center;">
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/28_boxes.png" alt="Vase and flower bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png" alt="Vase in front of a flower" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png" alt="Vase behind a flower" width="30%" style="margin: 0 1%;"/>
+</p>
+
 We identified that the UniFusion and ScaleU blocks, although effective in many scenarios, struggled to maintain distinct features when instances overlapped or were in close proximity. These observations were consistent across different types of inputs, suggesting inherent limitations in the model's architecture when dealing with complex spatial configurations.
 
-To provide a practical reference for other researchers, we have documented our experiments and results in a comprehensive Jupyter notebook. This notebook includes detailed code for setting up and running the iterative generation experiments with overlapping instances, visualizations of the generated images highlighting the differences in clarity and distinctiveness, and quantitative metrics comparing the performance of the model under various conditions. You can access the Jupyter notebook here.
 
+<!-- ![Donkey looking to the left bounding boxes](../output_tests/gc7.5-seed0-alpha0.8/35_boxes.png)
+
+![Donkey looking to the left](../output_tests/gc7.5-seed0-alpha0.8/36_xl_s0.4_n20.png)
+
+![Donkey looking to the left (went wrong)](../output_tests/gc7.5-seed0-alpha0.8/35_xl_s0.4_n20.png) -->
+
+<p style="text-align: center;">
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/35_boxes.png" alt="Donkey looking to the left bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/36_xl_s0.4_n20.png" alt="Donkey looking to the left" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/35_xl_s0.4_n20.png" alt="Donkey looking to the left (went wrong)" width="30%" style="margin: 0 1%;"/>
+</p>
 
 ---
+
+<!-- ![Donkey looking to the right bounding boxes](../output_tests/gc7.5-seed0-alpha0.8/42_boxes.png)
+![Donkey looking to the right](../output_tests/gc7.5-seed0-alpha0.8/44_xl_s0.4_n20.png) -->
+
+<p style="text-align: center;">
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/42_boxes.png" alt="Donkey looking to the right bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/44_xl_s0.4_n20.png" alt="Donkey looking to the right" width="30%" style="margin: 0 1%;"/>
+</p>
+
+To provide a practical reference, we have documented our experiments and results in two comprehensive Jupyter notebooks one showing the procedure for the [reproduction](RunPaper.md) and one showing the [additional experiments](RunTests.md) we conducted.
+
+<!-- ![Polar bear, iceberg and an igloo bounding boxes](../output_tests/gc7.5-seed0-alpha0.8/49_boxes.png)
+![Polar bear, iceberg and an igloo at the back](../output_tests/gc7.5-seed0-alpha0.8/58_xl_s0.4_n20.png)
+![Polar bear, iceberg and an igloo at the front](../output_tests/gc7.5-seed0-alpha0.8/56_xl_s0.4_n20.png) -->
+
+<p style="text-align: center;">
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/49_boxes.png" alt="Polar bear, iceberg and an igloo bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/58_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the back" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/56_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the front" width="30%" style="margin: 0 1%;"/>
+</p>
 
 
 ### **Conclusion**
