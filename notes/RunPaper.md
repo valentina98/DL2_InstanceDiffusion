@@ -1,6 +1,9 @@
-# Setup the project
+# Reproduce the paper
 
-Download the pretrained Instance Diffusion:
+## Setup the project
+
+### Download the pretrained Instance Diffusion:
+
 ```bash
 cd pretrained
 
@@ -10,15 +13,18 @@ wget "https://huggingface.co/xudongw/InstanceDiffusion/resolve/main/instancediff
 cd ../
 ```
 
-# Reproduce the paper
-
-## Start an interactive session:
+### Start an interactive session:
 Run the following and wait until your session starts:
 ```bash
 srun  --partition=gpu --gres=gpu:1 --cpus-per-task=9 --gpus=1 --job-name=Interactive --ntasks=1 --time=01:00:00 --mem=32000M --pty /bin/bash
 ```
 
-## Activate the environment:
+You can exit it any time with:
+```bash
+exit
+```
+
+### Activate the environment:
 ```bash
 # Load the correct modules
 module purge
@@ -172,8 +178,3 @@ CUDA_VISIBLE_DEVICES=0 /home/scur0411/.conda/envs/instdiff1/bin/python eval_loca
 ## InstanceDiffusion Model Training
 
 TODO
-
-## Exit the interactive job:
-```bash
-exit
-```
