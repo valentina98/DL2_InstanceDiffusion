@@ -29,13 +29,13 @@
 
 <!-- ![Vase abd flower bounding boxes](../output_tests/gc7.5-seed0-alpha0.8/28_boxes.png)
 
-![Vase in front of a flower](../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png)
+![Vase in front of a flower](../output_tests/gc7.5-seed0-alpha0.8/29_xl_s0.4_n20.png)
 
 ![Vase behind a flower](../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png) -->
 
 <p style="text-align: center;">
   <img src="../output_tests/gc7.5-seed0-alpha0.8/28_boxes.png" alt="Vase and flower bounding boxes" width="30%" style="margin: 0 1%;"/>
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png" alt="Vase in front of a flower" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/29_xl_s0.4_n20.png" alt="Vase in front of a flower" width="30%" style="margin: 0 1%;"/>
   <img src="../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png" alt="Vase behind a flower" width="30%" style="margin: 0 1%;"/>
 </p>
 
