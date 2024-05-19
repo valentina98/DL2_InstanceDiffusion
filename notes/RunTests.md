@@ -71,7 +71,7 @@ When the 2 fruits are specified at the same hight and same size, the model assum
   --cascade_strength 0.4
 ```
 
- We provide instructions to contradict that. Instead of seeing the apple at the front, we observe how the fruits merge together.
+ We provide instructions to contradict that. Instead of seeing the apple at the front, we observe how the fruits blend together.
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \

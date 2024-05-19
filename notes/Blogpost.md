@@ -85,42 +85,30 @@ We conducted a detailed analysis of the model's iterative generation process, em
 
 To validate our investigation, we conducted a series of experiments using several distinct visual conditions and semantic concepts. Our primary focus was on scenarios involving overlapping instances and iterative generation using points, scribbles, and bounding boxes.
 
-In our first set of experiments, we designed scenarios where instances were defined by points, scribbles, and bounding boxes. By iteratively generating images with varying sequences and proximities of these instances, we observed how well the model maintained clarity and distinct features. Our findings revealed significant weaknesses in scenarios involving overlapping instances. For example, when generating a sequence of objects defined by points, the model often blended features, leading to unclear boundaries and artifacts. Similar issues were observed with scribbles and bounding boxes, particularly when objects were closely positioned.
+In our first set of experiments, we designed scenarios where instances were defined by points, scribbles, and bounding boxes. By iteratively generating images with varying sequences and proximities of these instances, we observed how well the model maintained clarity and distinct features. Our findings revealed significant weaknesses in scenarios involving overlapping instances. For example, when generating a sequence of objects defined by points, the model often blended features, leading to unclear boundaries and artifacts. Similar issues were observed with scribbles and bounding boxes, particularly when objects were closely positioned. 
+
+*Test1:* We created an image of a panda with three balloons using only point specifications. Following this, we generated another image where the balloons were positioned closer together. We observed the balloons fail to generate correctly.
 
 <p style="text-align: center;">
   <img src="../output_tests/gc7.5-seed0-alpha0.8/1_xl_s0.4_n20.png" alt="Panda and balloons" width="45%" style="margin: 0 1%;"/>
   <img src="../output_tests/gc7.5-seed0-alpha0.8/8_xl_s0.4_n20.png" alt="Panda and balloons close to each other" width="45%" style="margin: 0 1%;"/>
 </p>
 
-We identified that the UniFusion and ScaleU blocks, although effective in many scenarios, struggled to maintain distinct features when instances overlapped or were in close proximity. These observations were consistent across different types of inputs, suggesting inherent limitations in the model's architecture when dealing with complex spatial configurations.
-
-
-<p style="text-align: center;">
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/14_boxes.png" alt="Apple and pear bounding boxes" width="30%" style="margin: 0 1%;"/>
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/65_xl_s0.4_n20.png" alt="Apple and pear" width="30%" style="margin: 0 1%;"/>
-</p>
+*Test2:* We used bounding boxes to generate images featuring an apple and a pear, positioning them at the same height and size. We noticed that the model frequently generates the pear in front of the apple, regardless of their left or right positions. We decided that the apple should appear in front. We observed the model struggled to accurately generate the fruits, often producing a blended representation of the two.
 
 <p style="text-align: center;">
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/70_boxes.png" alt="Apple in front of a pear (merged fruits) bounding boxes" width="30%" style="margin: 0 1%;"/>
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/14_xl_s0.4_n20.png" alt="Apple in front of a pear (merged fruits)" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/65_xl_s0.4_n20.png" alt="Apple and pear" width="40%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/14_xl_s0.4_n20.png" alt="Apple in front of a pear (merged fruits)" width="40%" style="margin: 0 1%;"/>
 </p>
 
-<p style="text-align: center;">
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/28_boxes.png" alt="Vase and flower bounding boxes" width="30%" style="margin: 0 1%;"/>
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/29_xl_s0.4_n20.png" alt="Vase in front of a flower" width="30%" style="margin: 0 1%;"/>
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png" alt="Vase behind a flower" width="30%" style="margin: 0 1%;"/>
-</p>
+*Test3:* We generated images of a vase and a flower on a table using bounding boxes, specifying that the flower should be in the front. However, because we positioned the flower higher than the vase, the model often interpreted this as a perspective cue and placed the flower behind the vase instead.
 
 <p style="text-align: center;">
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/35_boxes.png" alt="Donkey looking to the left bounding boxes" width="30%" style="margin: 0 1%;"/>
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/36_xl_s0.4_n20.png" alt="Donkey looking to the left" width="30%" style="margin: 0 1%;"/>
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/35_xl_s0.4_n20.png" alt="Donkey looking to the left (went wrong)" width="30%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/29_xl_s0.4_n20.png" alt="Vase in front of a flower" width="40%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png" alt="Vase behind a flower" width="40%" style="margin: 0 1%;"/>
 </p>
 
-<p style="text-align: center;">
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/42_boxes.png" alt="Donkey looking to the right bounding boxes" width="30%" style="margin: 0 1%;"/>
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/44_xl_s0.4_n20.png" alt="Donkey looking to the right" width="30%" style="margin: 0 1%;"/>
-</p>
+*Test4:* We created a scene featuring a bear, an iceberg, and an igloo and used scribbles (a list of points within the bounding box) to indicate whether the igloo or the iceberg should be in front. In the first scenario, we positioned the igloo behind the iceberg by omitting points for the igloo in the overlapping area. In the second scenario, we reversed their positions. However, this approach was unsuccessful as it produced inconsistent results, with some images showing igloos in front of icebergs and others showing them behind, regardless of the specified scribbles.
 
 <p style="text-align: center;">
   <img src="../output_tests/gc7.5-seed0-alpha0.8/49_boxes.png" alt="Polar bear, iceberg and an igloo bounding boxes" width="30%" style="margin: 0 1%;"/>
@@ -128,7 +116,19 @@ We identified that the UniFusion and ScaleU blocks, although effective in many s
   <img src="../output_tests/gc7.5-seed0-alpha0.8/56_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the front" width="30%" style="margin: 0 1%;"/>
 </p>
 
-To provide a practical reference, we have provided a documentation on our experiments in two comprehensive documentations, one showing the procedure for the [reproduction](RunPaper.md) and one showing the [additional experiments](RunTests.md) we conducted. The results of our experiments are available at this [folder](output_tests).
+
+*Test5:* We generated images of a complex animal facing both left and right. Specifically, we created images of a donkey with detailed bounding boxes for its head, mouth, and ears. The test was successful.
+
+<p style="text-align: center;">
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/37_xl_s0.4_n20.png" alt="Donkey looking to the left" width="40%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/44_xl_s0.4_n20.png" alt="Donkey looking to the left (went wrong)" width="40%" style="margin: 0 1%;"/>
+</p>
+
+We identified that the UniFusion and ScaleU blocks, although effective in many scenarios, struggled to maintain distinct features when instances overlapped or were in close proximity. These observations were consistent across different types of inputs, suggesting inherent limitations in the model's architecture when dealing with complex spatial configurations.
+
+
+To offer practical insights, we have documented our experiments in two separate files: one detailing the process for [reproduction](RunPaper.md) and another describing the [additional experiments](RunTests.md) we conducted. The results from these experiments can be found  in the following folders: [output](output) and [output_tests](output_tests).
+
 
 ### **Conclusion**
 
