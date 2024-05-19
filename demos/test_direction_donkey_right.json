@@ -4,29 +4,29 @@
     "height": 512,
     "annos": [
       {
-        "bbox": [100, 100, 312, 312],
+        "bbox": [100, 150, 312, 200], 
         "category_name": "donkey",
         "caption": "A full view of a donkey"
       },
       {
-        "bbox": [180, 180, 100, 100],
+        "bbox": [312, 150, 100, 100],
         "category_name": "donkey head",
         "caption": "The head of the donkey"
       },
       {
-        "bbox": [260, 210, 30, 20],
+        "bbox": [372, 210, 40, 30],
         "category_name": "donkey mouth",
         "caption": "The mouth of the donkey"
       },
       {
-        "bbox": [170, 160, 40, 20],
+        "bbox": [382, 150, 30, 40],
         "category_name": "donkey ear",
-        "caption": "The left ear of the donkey"
+        "caption": "Ear of the donkey"
       },
       {
-        "bbox": [250, 160, 40, 20],
+        "bbox": [312, 150, 30, 40],
         "category_name": "donkey ear",
-        "caption": "The right ear of the donkey"
+        "caption": "Ear of the donkey"
       }
     ]
   }
