@@ -90,6 +90,10 @@ pip install -r requirements.txt
 
 ***NOTE:*** You can access that environment from jobs and interactive sessions, however instead of writing `python` you need to use it as `/home/scur0411/.conda/envs/instdiff1/bin/python`. For now we haven't found a fix for this.
 
+### Check what partitions are available
+
+Sometimes a certain partition you use can have issues taking the jobs. Then you can try a different one. Usually, you will be using are `gpu` or `gpu_mig` for GPU but double check with the documentation.
+
 ## Exit Snellius server
 ```bash
 exit
@@ -103,3 +107,4 @@ https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial1/L
 https://servicedesk.surf.nl/wiki/display/WIKI/Loading+modules
 https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial1/Lisa_Cluster.html#Remote-development-with-VSCode-or-PyCharm
 https://servicedesk.surf.nl/wiki/display/WIKI/Interactive+jobs
+https://servicedesk.surf.nl/wiki/display/WIKI/Snellius+partitions+and+accounting

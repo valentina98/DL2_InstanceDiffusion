@@ -50,7 +50,7 @@ source activate instdiff1
   --alpha 0.8 \
   --seed 0 \
   --mis 0.36 \
-  --cascade_strength 0.4 \
+  --cascade_strength 0.4
 ```
 
 ### Let's Get Everybody Turning Heads!
@@ -65,7 +65,7 @@ source activate instdiff1
   --alpha 0.8 \
   --seed 0 \
   --mis 0.2 \
-  --cascade_strength 0.4 \
+  --cascade_strength 0.4
 ```
 
 ### Image Generation Using Single Points
@@ -80,7 +80,7 @@ source activate instdiff1
   --alpha 0.8 \
   --seed 0 \
   --mis 0.2 \
-  --cascade_strength 0.4 \
+  --cascade_strength 0.4
 ```
 
 ### Iterative Image Generation
@@ -95,7 +95,7 @@ source activate instdiff1
   --alpha 0.8 \
   --seed 0 \
   --mis 0.2 \
-  --cascade_strength 0.4 \
+  --cascade_strength 0.4
 ```
 
 ## Model Quantitative Evaluation on MSCOCO (Zero-shot)
@@ -134,7 +134,7 @@ cd ../
 ```
 
 --- 
-***TODO: The COCO dataset is too big. We need to use only part of it.***
+***TODO: The COCO dataset is too big. We have to use only part of it.***
 
 Once you have organized the data, proceed with executing the following commands (you need an interactive session for this):
 ```bash
@@ -177,4 +177,4 @@ CUDA_VISIBLE_DEVICES=0 /home/scur0411/.conda/envs/instdiff1/bin/python eval_loca
 ```
 ## InstanceDiffusion Model Training
 
-TODO
+*ToDo*
