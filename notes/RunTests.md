@@ -43,7 +43,7 @@ Prerequisites (described in RunPaper.md):
 
 ### Attempt to generate an apple in front of a pear:
 
-When the 2 fruits are specified at the same hight and same size, the model always assumes the pear in front of the apple - no matter which one is on the left or right.
+When the 2 fruits are specified at the same hight and same size, the model assumes more often the pear in front of the apple (no matter which one is on the left or right).
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
