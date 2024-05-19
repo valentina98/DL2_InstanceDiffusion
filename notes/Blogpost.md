@@ -94,18 +94,18 @@ In our first set of experiments, we designed scenarios where instances were defi
   <img src="../output_tests/gc7.5-seed0-alpha0.8/8_xl_s0.4_n20.png" alt="Panda and balloons close to each other" width="45%" style="margin: 0 1%;"/>
 </p>
 
-*Test2:* We used bounding boxes to generate images featuring an apple and a pear, positioning them at the same height and size. We noticed that the model frequently generates the pear in front of the apple, regardless of their left or right positions. We decided that the apple should appear in front. We observed the model struggled to accurately generate the fruits, often producing a blended representation of the two.
-
-<p style="text-align: center;">
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/65_xl_s0.4_n20.png" alt="Apple and pear" width="40%" style="margin: 0 1%;"/>
-  <img src="../output_tests/gc7.5-seed0-alpha0.8/14_xl_s0.4_n20.png" alt="Apple in front of a pear (merged fruits)" width="40%" style="margin: 0 1%;"/>
-</p>
-
-*Test3:* We generated images of a vase and a flower on a table using bounding boxes, specifying that the flower should be in the front. However, because we positioned the flower higher than the vase, the model often interpreted this as a perspective cue and placed the flower behind the vase instead.
+*Test2:* We generated images of a vase and a flower on a table using bounding boxes, specifying that the flower should be in the front. However, because we positioned the flower higher than the vase, the model often interpreted this as a perspective cue and placed the flower behind the vase instead.
 
 <p style="text-align: center;">
   <img src="../output_tests/gc7.5-seed0-alpha0.8/29_xl_s0.4_n20.png" alt="Vase in front of a flower" width="40%" style="margin: 0 1%;"/>
   <img src="../output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png" alt="Vase behind a flower" width="40%" style="margin: 0 1%;"/>
+</p>
+
+*Test3:* We generated images featuring an apple and a pear, positioned at the same height and having the same size. We noticed that the model frequently generates the pear in front of the apple, regardless of order of the fruits. We decided to contradict that explicitly specifying that the apple should appear in front. We observed the model struggled to accurately generate the fruits, often producing a blended representation of the two.
+
+<p style="text-align: center;">
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/65_xl_s0.4_n20.png" alt="Apple and pear" width="40%" style="margin: 0 1%;"/>
+  <img src="../output_tests/gc7.5-seed0-alpha0.8/14_xl_s0.4_n20.png" alt="Apple in front of a pear (merged fruits)" width="40%" style="margin: 0 1%;"/>
 </p>
 
 *Test4:* We created a scene featuring a bear, an iceberg, and an igloo and used scribbles (a list of points within the bounding box) to indicate whether the igloo or the iceberg should be in front. In the first scenario, we positioned the igloo behind the iceberg by omitting points for the igloo in the overlapping area. In the second scenario, we reversed their positions. However, this approach was unsuccessful as it produced inconsistent results, with some images showing igloos in front of icebergs and others showing them behind, regardless of the specified scribbles.
