@@ -41,6 +41,15 @@ IdentityFile ~/.ssh/gitKey
 
 Then, open the private Github repo settings and add the generated public key as a deploy key. Now you can access the private repo from Snellius.
 
+### Set username and email
+
+You might need to set up a username and email to commit from Snellius. All team members will have to use the same configuration or change it every time before they commit.
+
+```bash
+git config --global user.name "Valentina Lilova"
+git config --global user.email "valentina.lilova98@gmail.com"
+```
+
 ## Submitting jobs
 
 ### Submitting the job:
