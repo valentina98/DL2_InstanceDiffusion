@@ -134,7 +134,7 @@ cd ../
 ```
 
 --- 
-***TODO: The COCO dataset is too big. We have to use only part of it.***
+***ToDo: The COCO dataset is too big. We have to use only part of it.***
 
 Once you have organized the data, proceed with executing the following commands (you need an interactive session for this):
 ```bash

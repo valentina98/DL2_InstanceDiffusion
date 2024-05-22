@@ -5,25 +5,25 @@
 In recent years, the field of generative models for image creation has witnessed significant advancements, particularly with the advent of diffusion models. These models have demonstrated an unparalleled ability to generate high-quality images by iteratively refining random noise into coherent and detailed visual outputs. One of the groundbreaking contributions in this domain is the paper titled[ "InstanceDiffusion: Instance-level Control for Image Generation"](https://arxiv.org/abs/2402.03290) by Xudong Wang, Trevor Darrell, Sai Saketh Rambhatla, and Rohit Girdhar. This paper introduces the InstanceDiffusion model, which enhances traditional text-to-image diffusion models by providing precise control over individual image instances.
 The core innovation of InstanceDiffusion lies in its ability to allow fine-grained control over the attributes and locations of multiple instances within an image. 
 
-![Figure 1](notes/img1.png)
+![Figure 1](docs/img1.png)
 
 The model incorporates several key components to achieve this level of control:
 
 **UniFusion Block**: This block integrates various forms of instance-level conditions into the same feature space, seamlessly incorporating instance-level locations and text prompts into the visual tokens from the diffusion model. This approach contrasts with previous methods that often required separate architectures or complex preprocessing steps for different types of location inputs. By unifying these inputs, the UniFusion block simplifies the integration process and enhances the model's flexibility.
 
-![Figure 1](notes/img3.png)
+![Figure 1](docs/img3.png)
 
 **ScaleU Block**: The ScaleU block recalibrates both the main features and the low-frequency components within the skip connections of the UNet architecture. This recalibration ensures that the model can better adhere to the specified layout conditions, improving the fidelity and coherence of the generated images. The ScaleU block dynamically adjusts the scaling of these features, addressing the challenge of blending high-level semantic information with detailed instance-level specifications.
 
 **Multi-instance Sampler**: This component addresses a common issue in multi-instance generation: information leakage and confusion between the conditions of different instances. The Multi-instance Sampler mitigates these issues by isolating the generation process of each instance, thereby preserving the distinct attributes and locations specified for each object. This isolation is achieved through a series of controlled sampling steps, which ensure that each instance is generated accurately and without interference from others.
 
-![Figure 2](notes/img4.png)
+![Figure 2](docs/img4.png)
 
 Through these innovations, InstanceDiffusion significantly surpasses the performance of previous state-of-the-art models. The model demonstrates superior capabilities in scenarios that require complex instance specifications such as bounding boxes, instance masks, points, and scribbles. For example, on the COCO dataset, InstanceDiffusion outperforms prior models by 20.4% APbox_50 for box inputs and 25.4% IoU for mask inputs. This marked improvement highlights the model's ability to generate images that are not only realistic but also precisely controlled according to user-defined parameters.
 
 The practical implications of InstanceDiffusion are vast, particularly in fields where customized and controlled image generation is crucial. In digital marketing, for instance, the ability to generate tailored advertisements with specific product placements can significantly enhance user engagement. Similarly, in content creation and interactive media, the precise control over instance attributes and locations can enable more dynamic and engaging visual storytelling. By offering a higher degree of control and flexibility, InstanceDiffusion paves the way for new applications and innovations in generative modeling.
 
-![Figure 1](notes/img2.png)
+![Figure 1](docs/img2.png)
 
 ---
 
