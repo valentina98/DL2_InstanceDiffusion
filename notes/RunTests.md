@@ -9,9 +9,9 @@ Prerequisites (described in RunPaper.md):
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
-  --input_json demos/test_points_crogi_kitchen.json \
+  --input_json demos/test_point_crogi_kitchen.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_point.yaml \
   --guidance_scale 7.5 \
@@ -21,7 +21,7 @@ Prerequisites (described in RunPaper.md):
   --cascade_strength 0.4
 
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_scribble_crogi_kitchen.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -33,7 +33,7 @@ Prerequisites (described in RunPaper.md):
   --cascade_strength 0.4\
 
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_bbox_crogi_kitchen.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -45,7 +45,7 @@ Prerequisites (described in RunPaper.md):
   --cascade_strength 0.4
   
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_mask_crogi_kitchen.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -65,7 +65,7 @@ Prerequisites (described in RunPaper.md):
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_point_panda_balloons1.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -77,9 +77,24 @@ Prerequisites (described in RunPaper.md):
   --cascade_strength 0.4
   
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_point_panda_balloons2.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_point.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4
+```
+
+We try to use 1 dot for 3 baloons instead:
+```bash
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 8 \
+  --output ./output_tests/ \
+  --input_json demos/test_point_panda_balloons3.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_point.yaml \
   --guidance_scale 7.5 \
@@ -99,7 +114,7 @@ When the 2 fruits are specified at the same hight and same size, the model assum
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_bbox_apple_pear1.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -111,7 +126,7 @@ When the 2 fruits are specified at the same hight and same size, the model assum
   --cascade_strength 0.4 
 
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_bbox_pear_apple1.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -127,7 +142,7 @@ When the 2 fruits are specified at the same hight and same size, the model assum
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_bbox_apple_pear2.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -151,11 +166,11 @@ When the 2 fruits are specified at the same hight and same size, the model assum
   --cascade_strength 0.4
 ```
 
-Then we decide to compare with the output using the less restrictibe points:
+Then we decide to compare with the output using the less restrictive points:
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_point_apple_pear2.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -167,7 +182,7 @@ Then we decide to compare with the output using the less restrictibe points:
   --cascade_strength 0.4 
 
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_point_pear_apple2.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -188,7 +203,7 @@ However, we provide text instructions for the vase being to the front.
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_bbox_vase_flower_table.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -215,7 +230,19 @@ In the UniFusion block different inputs are separately tokenized and fed to the 
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
+  --output ./output_tests/ \
+  --input_json demos/test_bbox_polar_bear_iceberg_igloo.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_scribble.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4 
+
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_scribble_polar_bear_iceberg_igloo1.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -227,47 +254,9 @@ In the UniFusion block different inputs are separately tokenized and fed to the 
   --cascade_strength 0.4 
 
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_scribble_polar_bear_iceberg_igloo2.json \
-  --ckpt pretrained/instancediffusion_sd15.pth \
-  --test_config configs/test_scribble.yaml \
-  --guidance_scale 7.5 \
-  --alpha 0.8 \
-  --seed 0 \
-  --mis 0.36 \
-  --cascade_strength 0.4 
-```
-
-```bash
-/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
-  --output ./output_tests/ \
-  --input_json demos/test_scribble_polar_bear_iceberg_igloo3.json \
-  --ckpt pretrained/instancediffusion_sd15.pth \
-  --test_config configs/test_scribble.yaml \
-  --guidance_scale 7.5 \
-  --alpha 0.8 \
-  --seed 0 \
-  --mis 0.36 \
-  --cascade_strength 0.4 
-  
-/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
-  --output ./output_tests/ \
-  --input_json demos/test_scribble_polar_bear_iceberg_igloo4.json \
-  --ckpt pretrained/instancediffusion_sd15.pth \
-  --test_config configs/test_scribble.yaml \
-  --guidance_scale 7.5 \
-  --alpha 0.8 \
-  --seed 0 \
-  --mis 0.36 \
-  --cascade_strength 0.4 
-  
-/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
-  --output ./output_tests/ \
-  --input_json demos/test_scribble_polar_bear_iceberg_igloo5.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_scribble.yaml \
   --guidance_scale 7.5 \
@@ -285,7 +274,7 @@ In the UniFusion block different inputs are separately tokenized and fed to the 
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_direction_donkey_left.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -297,7 +286,7 @@ In the UniFusion block different inputs are separately tokenized and fed to the 
   --cascade_strength 0.4 
 
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_direction_donkey_right.json \
   --ckpt pretrained/instancediffusion_sd15.pth \

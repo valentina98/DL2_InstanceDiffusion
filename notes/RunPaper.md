@@ -96,6 +96,94 @@ source activate instdiff1
   --seed 0 \
   --mis 0.2 \
   --cascade_strength 0.4
+  
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 8 \
+  --output ./output/ \
+  --input_json demos/demo_iterative_r2.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_box.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.2 \
+  --cascade_strength 0.4
+  
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 8 \
+  --output ./output/ \
+  --input_json demos/demo_iterative_r3.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_box.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.2 \
+  --cascade_strength 0.4
+  
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 8 \
+  --output ./output/ \
+  --input_json demos/demo_iterative_r4.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_box.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.2 \
+  --cascade_strength 0.4
+  
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 8 \
+  --output ./output/ \
+  --input_json demos/demo_iterative_r5.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_box.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.2 \
+  --cascade_strength 0.4
+```
+
+### Other demos
+
+```bash
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 8 \
+  --output ./output/ \
+  --input_json demos/demo_palm_point.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_point.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.2 \
+  --cascade_strength 0.4
+  
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 8 \
+  --output ./output/ \
+  --input_json demos/demo_rose_garden_painting.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_box.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.2 \
+  --cascade_strength 0.4
+  
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 8 \
+  --output ./output/ \
+  --input_json demos/demo_teddy_bear_castle.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_box.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.2 \
+  --cascade_strength 0.4
 ```
 
 ## Model Quantitative Evaluation on MSCOCO (Zero-shot)
