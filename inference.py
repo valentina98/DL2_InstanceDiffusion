@@ -3,10 +3,11 @@ import json
 import torch 
 import argparse
 import numpy as np
+import random
 
 from functools import partial
 from omegaconf import OmegaConf
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageOps
 from tkinter.messagebox import NO
 from diffusers.utils import load_image
 from diffusers import StableDiffusionXLImg2ImgPipeline
@@ -102,12 +103,12 @@ def run(meta, model, autoencoder, text_encoder, diffusion, clip_model, clip_proc
     start = len( os.listdir(output_folder) )
     image_ids = list(range(start,start+config.num_images))
     # print(image_ids)
-    
-    # visualize the boudning boxes
-    image_boxes = draw_boxes( meta["locations"], meta["phrases"], meta["prompt"] + ";alpha=" + str(meta['alpha_type'][0]) )
-    img_name = os.path.join( output_folder, str(image_ids[0])+'_boxes.png' )
-    image_boxes.save( img_name )
-    print("saved image with boxes at {}".format(img_name))
+
+    # visualize the bounding boxes
+    image_inputs = draw_inputs( meta["locations"], meta["phrases"], meta["prompt"] + ";alpha=" + str(meta['alpha_type'][0]), meta["points"], meta["scribbles"])
+    img_name = os.path.join( output_folder, str(image_ids[0])+'_inputs.png' )
+    image_inputs.save( img_name )
+    print("saved image with inputs at {}".format(img_name))
     
     # if use cascade model, we will use SDXL-Refiner to refine the generated images
     if config.cascade_strength > 0:
@@ -145,22 +146,40 @@ def rescale_points(point, width, height):
 
 def rescale_scribbles(scribbles, width, height):
     return [[scribble[0]/float(width), scribble[1]/float(height)] for scribble in scribbles]
-    
-# draw boxes given a lits of boxes: [[top left cornor, top right cornor, width, height],]
-# show descriptions per box if descriptions is not None
-def draw_boxes(boxes, descriptions=None, caption=None):
+
+def draw_inputs(boxes, descriptions=None, caption=None, points=None, scribbles=None):
     width, height = 512, 512
-    image = Image.new("RGB", (width, height), (255, 255, 255))
+    image = Image.new("RGBA", (width, height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(image)   
     boxes = [ [ int(x*width) for x in box ] for box in boxes]
+    
+    # Generate a random color for each description
+    color_list = [generate_random_color() for _ in descriptions]
+
     for i, box in enumerate(boxes):
-        draw.rectangle( ( (box[0], box[1]), (box[2], box[3]) ), outline=(0,0,0), width=2)
+        draw.rectangle(((box[0], box[1]), (box[2], box[3])), outline=color_list[i], width=2)
+
+    for idx, point in enumerate(points):
+        x = int(point[0] * width)
+        y = int(point[1] * height)
+        draw.ellipse([x - 5, y - 5, x + 5, y + 5], fill=color_list[idx])
+
+    # for idx, scribble in enumerate(scribbles):
+    #     scribble = [(int(p[0] * width), int(p[1] * height)) for p in scribble]
+    #     print("scribble: ", scribble)
+    #     draw.line(scribble, fill=color_list[idx], width=3)
+
     if descriptions is not None:
         for idx, box in enumerate(boxes):
-            draw.text((box[0], box[1]), descriptions[idx], fill="black")
+            draw.text((box[0], box[1]), descriptions[idx], fill=color_list[idx])
+            
     if caption is not None:
-        draw.text((0, 0), caption, fill=(255,102,102))
+        draw.text((0, 0), caption, fill="black")
+    
     return image
+
+def generate_random_color():
+    return tuple(random.randint(0, 255) for _ in range(3))
 
 if __name__ == "__main__":  
 
