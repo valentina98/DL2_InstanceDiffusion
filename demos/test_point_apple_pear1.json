@@ -6,12 +6,12 @@
     {
       "category_name": "apple",
       "caption": "a ripe red apple",
-      "bbox": [200, 200, 100, 100]
+      "point": [200, 250]
     },
     {
       "category_name": "pear",
       "caption": "a yellow pear",
-      "bbox": [150, 200, 100, 100]
+      "point": [250, 250]
     }
   ]
 }

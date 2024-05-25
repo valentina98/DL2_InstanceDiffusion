@@ -109,7 +109,7 @@ ToDo
 
 *Idea: close points*
 
-We created an image of a panda with three balloons using point specifications. Following this, we tried to decrease the distance generated another image where the balloons were positioned closer together. We observed the balloons often fail to generate correctly.
+We created an image of a panda with three balloons using point specifications. Following this, we generated another image decreasing the distance between the balloons. We observed the balloons often fail to generate correctly.
 
 <p style="text-align: center;">
   <img src="output_tests/gc7.5-seed0-alpha0.8/1_xl_s0.4_n20.png" alt="Panda and balloons" width="45%" style="margin: 0 1%;"/>
@@ -127,13 +127,13 @@ We generated images of a vase and a flower on a table using bounding boxes, spec
   <img src="output_tests/gc7.5-seed0-alpha0.8/30_xl_s0.4_n20.png" alt="Vase behind a flower" width="40%" style="margin: 0 1%;"/>
 </p>
 
-*Note: Restricting the model too much to weird positionings of objects might cause poor quality of the generated images.*
-
 #### Test 3
 
 *Idea: overlapping bounding boxes* 
 
-We used bounding boxes to generate images featuring an apple and a pear, positioned at the same height and having the same size. We noticed that the model frequently generates the pear in front of the apple, regardless of the order of the fruits. We decided to contradict that explicitly specifying that the apple should appear in front. We observed the model struggled to accurately generate the fruits, often producing a blended representation of the two.
+We used bounding boxes to generate images featuring an apple and a pear, positioned at the same height and having the same size. We noticed that the model frequently generates the pear in front of the apple. We did not generate enough fruit images to draw a conclusion that the model is biased, however we decided to contradict the positioning explicitly specifying in the prompt that the apple should appear in front. We observed the model struggled to accurately generate the fruits, often producing a blended representation of the two.
+
+With this test we visualized a weakness related to the Multi-instance Sampler which uses instance latents averaging. This approach is chosen for its compatibility with the different types of inputs as well as its ability to handle overlapping areas, however side effects are possible.
 
 <p style="text-align: center;">
   <img src="output_tests/gc7.5-seed0-alpha0.8/65_xl_s0.4_n20.png" alt="Apple and pear" width="40%" style="margin: 0 1%;"/>
@@ -142,11 +142,11 @@ We used bounding boxes to generate images featuring an apple and a pear, positio
 
 #### Test 4
 
-*Idea: crossing scribbles*
+*Idea: depth with scribbles*
 
-We created a scene featuring a bear, an iceberg, and an igloo using bounding boxes and scribbles in addition to them. We tried to ise the scribbles as cue whether the igloo or the iceberg should be in front. In the first scenario, we positioned the igloo behind the iceberg by omitting points for the igloo in the overlapping area. In the second scenario, we reversed their positions. However, this approach was unsuccessful as it produced inconsistent results, with some images showing igloos in front of icebergs and others showing them behind, regardless of the specified scribbles.
+We created a scene featuring a bear, an iceberg, and an igloo using bounding boxes. We tried to use the scribbles as cue whether the igloo or the iceberg should be in front. We attempted to position the igloo behind the iceberg by omitting points for the igloo in the overlapping area. We also tried omitting points for the iceberg at the overlapping area. This approach,  however, didn't. The same images were generated regardless of the scribbles.
 
-<!-- ToDo: test only scribbles -->
+In the UniFusion block different inputs are separately tokenized and fed to the encoder. It is described that adding more inputs improves the precision of the output, which we see in the demos, however, we notice that there is no effect in the case of adding scribbles.
 
 <p style="text-align: center;">
   <img src="output_tests/gc7.5-seed0-alpha0.8/49_boxes.png" alt="Polar bear, iceberg and an igloo bounding boxes" width="30%" style="margin: 0 1%;"/>
@@ -162,10 +162,6 @@ We generated images of a complex animal facing both left and right. Specifically
 
 We successfully generated images of a complex animal facing both left and right. Specifically, we described a donkey using bounding boxes for its body, head, mouth, and ears, resulting in high-quality output images.
 
-<!-- <p style="text-align: center;">
-  <img src="output_tests/gc7.5-seed0-alpha0.8/35_boxes.png" alt="Donkey looking to the left bounding boxes" width="40%" style="margin: 0 1%;"/>
-  <img src="output_tests/gc7.5-seed0-alpha0.8/42_boxes.png" alt="Donkey looking to the right bounding boxes" width="40%" style="margin: 0 1%;"/>
-</p> -->
 <p style="text-align: center;">
   <img src="output_tests/gc7.5-seed0-alpha0.8/37_xl_s0.4_n20.png" alt="Donkey looking to the left" width="40%" style="margin: 0 1%;"/>
   <img src="output_tests/gc7.5-seed0-alpha0.8/44_xl_s0.4_n20.png" alt="Donkey looking to the left (went wrong)" width="40%" style="margin: 0 1%;"/>
@@ -180,7 +176,7 @@ However, we also encountered some artifacts like two donkeys:
 
 ## **Future Work**
 
-Future work could focus on enhancing the model's spatial understanding by incorporating object ordering into the input. This enhancement will require the integration of a dataset that provides depth or object order information, such as the NYU Depth Dataset V2 or the KITTI Vision Benchmark Suite. The model will require adjustments to effectively interpret this spatial data, followed by comprehensive retraining to ensure it accurately reflects the depth and positional relationships of objects, thus improving the realism and contextual accuracy of the generated images.
+Future work could aim to improve the model's spatial understanding by incorporating object ordering into the input. This would involve integrating a dataset that includes depth or object order information and retraining the model to capture the positional relationships of objects. Additionally, this approach could enable the use of the Multi-instance Sampler with a crop-and-paste method, addressing issues related to the close proximity and overlap of objects, and enhancing the contextual accuracy of the generated images.
 
 ## **Conclusion**
 

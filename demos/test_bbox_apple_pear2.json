@@ -4,16 +4,14 @@
   "height": 400,
   "annos": [
     {
-      "bbox": [150, 200, 100, 100],
-      "mask": [],
       "category_name": "apple",
-      "caption": "a ripe red apple at the front"
+      "caption": "a ripe red apple at the front",
+      "bbox": [150, 200, 100, 100]
     },
     {
-      "bbox": [200, 200, 100, 100],
-      "mask": [],
       "category_name": "pear",
-      "caption": "a yellow pear, partly covered"
+      "caption": "a yellow pear, partly covered",
+      "bbox": [200, 200, 100, 100]
     }
   ]
 }

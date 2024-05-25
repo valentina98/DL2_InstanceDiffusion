@@ -5,6 +5,58 @@ Prerequisites (described in RunPaper.md):
 - Start an interactive session
 - Activate the environment
 
+## Test different inputs
+
+```bash
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 3 \
+  --output ./output_tests/ \
+  --input_json demos/test_points_crogi_kitchen.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_point.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4
+
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 3 \
+  --output ./output_tests/ \
+  --input_json demos/test_scribble_crogi_kitchen.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_scribble.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4\
+
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 3 \
+  --output ./output_tests/ \
+  --input_json demos/test_bbox_crogi_kitchen.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_box.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4
+  
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 3 \
+  --output ./output_tests/ \
+  --input_json demos/test_mask_crogi_kitchen.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_mask.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4
+```
+
 ## Generate images with points
 
 *Idea: close points*
@@ -15,7 +67,7 @@ Prerequisites (described in RunPaper.md):
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
   --num_images 3 \
   --output ./output_tests/ \
-  --input_json demos/test_points_panda_balloons1.json \
+  --input_json demos/test_point_panda_balloons1.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_point.yaml \
   --guidance_scale 7.5 \
@@ -27,7 +79,7 @@ Prerequisites (described in RunPaper.md):
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
   --num_images 3 \
   --output ./output_tests/ \
-  --input_json demos/test_points_panda_balloons2.json \
+  --input_json demos/test_point_panda_balloons2.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_point.yaml \
   --guidance_scale 7.5 \
@@ -99,6 +151,34 @@ When the 2 fruits are specified at the same hight and same size, the model assum
   --cascade_strength 0.4
 ```
 
+Then we decide to compare with the output using the less restrictibe points:
+
+```bash
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 3 \
+  --output ./output_tests/ \
+  --input_json demos/test_point_apple_pear2.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_box.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4 
+
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 3 \
+  --output ./output_tests/ \
+  --input_json demos/test_point_pear_apple2.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_box.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4
+```
+
 ### Attempt to generate vase behind a flower:
 
 *Idea: contradict perspective*
@@ -120,18 +200,18 @@ However, we provide text instructions for the vase being to the front.
   --cascade_strength 0.4
 ```
 
-*ToDo: experiment with masks and check if they improve the result*
-
 ## Generate images with scribbles
 
-*Idea: crossing scribbles - ToDo*
+*Idea: depth with scribbles*
 
 ### Attempt to generate scenes
 
-We defined a scene with a bear, iceberg and an igloo. We attempted to use scribbles (a list of points inside the bounding box) to specify if the igloo or the iceberg is in the front. In the first example the igloo is behind the iceberg (no points are specified for the igloo at the overlapping area), and in the second example it is the other way around. 
+We defined a scene with a bear, iceberg and an igloo. We attempted to use scribbles (a list of points inside the bounding box) to give the model a cue if the igloo or the iceberg should be in the front. In the first example we input the igloo behind the iceberg (we specified no points for the igloo at the overlapping area), and in the second example it is the other way around. 
 This did not work. The same images got generated.
 
-*ToDo: Why this didn't work?*
+*Why this didn't work?*
+
+In the UniFusion block different inputs are separately tokenized and fed to the encoder. It is described that adding more inputs improves the precision of the output, which we see in the demos, however, we notice that there is no effect in the case of adding scribbles.
 
 ```bash
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
@@ -150,6 +230,44 @@ This did not work. The same images got generated.
   --num_images 3 \
   --output ./output_tests/ \
   --input_json demos/test_scribble_polar_bear_iceberg_igloo2.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_scribble.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4 
+```
+
+```bash
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 3 \
+  --output ./output_tests/ \
+  --input_json demos/test_scribble_polar_bear_iceberg_igloo3.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_scribble.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4 
+  
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 3 \
+  --output ./output_tests/ \
+  --input_json demos/test_scribble_polar_bear_iceberg_igloo4.json \
+  --ckpt pretrained/instancediffusion_sd15.pth \
+  --test_config configs/test_scribble.yaml \
+  --guidance_scale 7.5 \
+  --alpha 0.8 \
+  --seed 0 \
+  --mis 0.36 \
+  --cascade_strength 0.4 
+  
+/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
+  --num_images 3 \
+  --output ./output_tests/ \
+  --input_json demos/test_scribble_polar_bear_iceberg_igloo5.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_scribble.yaml \
   --guidance_scale 7.5 \

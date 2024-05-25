@@ -4,22 +4,19 @@
     "height": 400,
     "annos": [
         {
-            "bbox": [270, 170, 60, 180],
-            "mask": [],
             "category_name": "vase",
-            "caption": "a tall ceramic vase on the table covered by the flower"
+            "caption": "a tall ceramic vase on the table covered by the flower",
+            "bbox": [270, 170, 60, 180]
         },
         {
-            "bbox": [200, 280, 270, 30],
-            "mask": [],
             "category_name": "flower",
-            "caption": "a flower positioned at the front"
+            "caption": "a flower positioned at the front",
+            "bbox": [200, 280, 270, 30]
         },
         {
-            "bbox": [50, 270, 500, 120],
-            "mask": [],
             "category_name": "table",
-            "caption": "a large, sturdy wooden table"
+            "caption": "a large, sturdy wooden table",
+            "bbox": [50, 270, 500, 120]
         }
     ]
 }
