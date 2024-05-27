@@ -260,6 +260,9 @@ We used different position inputs to describe a certain position of a crogi to v
   <img src="./output_tests/gc7.5-seed0-alpha0.8/53_xl_s0.4_n20.png" alt="Crogi point inputs image" width="35%" style="margin: 0 1%;"/>
 </p>
 
+**Figure 0** Images showing a corgi dog in the image center with varying input restrictiveness: points, scribbles, bounding boxes, and masks.
+
+
 #### Test 1 
 
 We created an image of a panda with three balloons using point specifications. Following this, we generated another image decreasing the distance between the balloons. We observed the balloons often fail to generate correctly.
@@ -272,6 +275,8 @@ We created an image of a panda with three balloons using point specifications. F
   <img src="./output_tests/gc7.5-seed0-alpha0.8/102_inputs.png" alt="Panda and balloons points" width="35%" style="margin: 0 1%;"/>
   <img src="./output_tests/gc7.5-seed0-alpha0.8/103_xl_s0.4_n20.png" alt="Panda and balloons" width="35%" style="margin: 0 1%;"/>
 </p>
+
+**Figure 1** Images of a panda with balloons using point inputs. Balloons are correctly placed (top) and incorrectly placed when closer together (bottom).
 
 #### Test 2
 
@@ -296,6 +301,8 @@ We used bounding boxes to generate images featuring an apple and a pear, positio
   <img src="./output_tests/gc7.5-seed0-alpha0.8/179_xl_s0.4_n20.png" alt="Merged fruits" width="30%" style="margin: 0 1%;"/>
 </p>
 
+**Figure 2** Images of a vase and flower using bounding boxes. Flower placement is incorrect due to perspective cues (bottom), despite specifying the flower should be in front.
+
 #### Test 3
 
 We used bounding boxes to define the positions of a vase, a flower and a table. We explicitly specified in the prompt that the flower should be in the front.
@@ -306,6 +313,8 @@ We used bounding boxes to define the positions of a vase, a flower and a table. 
   <img src="./output_tests/gc7.5-seed0-alpha0.8/197_xl_s0.4_n20.png" alt="Vase behind a flower" width="35%" style="margin: 0 1%;"/>
   <img src="./output_tests/gc7.5-seed0-alpha0.8/200_xl_s0.4_n20.png" alt="Vase behind a flower" width="35%" style="margin: 0 1%;"/>
 </p>
+
+**Figure 3** Images of an apple and pear using overlapping bounding boxes. The model struggles with correct placement, often blending the two fruits.
 
 #### Test 4
 
@@ -318,6 +327,8 @@ We created a scene featuring a bear, an iceberg, and an igloo using bounding box
   <img src="./output_tests/gc7.5-seed0-alpha0.8/211_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the front" width="30%" style="margin: 0 1%;"/>
   <img src="./output_tests/gc7.5-seed0-alpha0.8/213_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the back" width="30%" style="margin: 0 1%;"/>
 </p>
+
+**Figure 4**  Scenes with a bear, iceberg, and igloo using bounding boxes and scribbles. Scribbles did not affect the depth placement as intended.
 
 #### Test 5
 
@@ -339,6 +350,8 @@ We also encountered some artifacts:
   <img src="./output_tests/gc7.5-seed0-alpha0.8/279_xl_s0.4_n20.png" alt="Donkey looking to the right (went wrong)" width="35%" style="margin: 0 1%;"/>
 </p>
 
+**Figure 5** Images of a donkey facing left and right using bounding boxes. Successful outputs (top) and artifacts like generating two donkeys (bottom).
+
 
 ### **Experimental Results**
 
@@ -353,7 +366,7 @@ With *Test 0* we showcased the different location inputs and their variability i
 
 With *Test 1* we visualized information leakage between instances placed close to each other. They  affected each other’s attributes. It ocurred despite the improvements made by the Multi-instance Sampler. 
 
-With *Test 2*, we showed that instances can blend together during the averaging process. Specifically, we encountered the issue then we attempted to provide instructions for which fruit in in front.
+With *Test 2*, we showed that instances can blend together during the averaging process. Specifically, we encountered the issue then we attempted to provide instructions for which fruit is in front.
 
 With *Test 3* we showed that describing unusual positions for objects may lead to inconsistent or poor results. The position of the flower in relation to the prompt contradicted the physics of perspective. We chose to visualize this not because it showcases a difference in the instance diffusion implementation, but because we believe it offers an interesting observation that could enhance the understanding of how the model works.
 
@@ -372,27 +385,17 @@ Future work could aim to improve the model's spatial understanding by incorporat
 
 ## **Conclusion**
 
+Our exploration of the InstanceDiffusion model has provided significant insights, reinforcing the model's potential in the domain of text-to-image generation. This research aimed to reproduce the original findings and investigate specific limitation in handling overlapping instances.
 
-Our exploration of the InstanceDiffusion model has yielded significant insights, reinforcing the model's potential in the domain of text-to-image generation. This research aimed to reproduce the original findings and investigate specific limitations, particularly in handling overlapping instances.
+We successfully generated some of the original images of the InstanceDiffusion model, confirming its superior performance in generating precise and high-quality images based on instance-level conditions.
 
+Through our experiments, we identified significant weaknesses in the model's performance when handling overlapping instances. The model often struggled to maintain clarity and distinct features. These findings highlight the challenges the model faces in maintaining the separation and accurate representation of closely positioned objects.
 
-We successfully reproduced the original results of the InstanceDiffusion model, confirming its superior performance in generating precise and high-quality images based on instance-level conditions. This validation underscores the robustness of the UniFusion Block, ScaleU Block, and Multi-instance Sampler.
-
-
-Through our experiments, we identified significant weaknesses in the model's performance when handling overlapping instances. By systematically varying the order and proximity of inputs defined by points, scribbles, and bounding boxes, we observed that the model often struggled to maintain clarity and distinct features. These findings highlight the challenges the model faces in maintaining the separation and accurate representation of closely positioned objects.
-
-
-Our work has focused on testing the InstanceDiffusion model more extensively and investigating its failure modes, particularly in scenarios involving overlapping instances. This detailed analysis provides valuable insights into the model's limitations and areas where further research is needed.
-
-
-The InstanceDiffusion model demonstrates significant potential in various industries requiring detailed and customizable image generation, such as digital marketing, content creation, and interactive media. However, our findings emphasize the need for further development to enhance the model's ability to manage overlapping instances and complex spatial configurations.
-
-
-The InstanceDiffusion model represents a notable advancement in text-to-image generation, and our investigation has highlighted both its strengths and limitations. By thoroughly testing the model and identifying key areas for improvement, we have contributed to a deeper understanding of instance-level control in image generation. Our work sets the stage for future research aimed at addressing these challenges and advancing the capabilities of generative models.
-
+The InstanceDiffusion model demonstrates significant potential in various industries which  require detailed and customizable image generation. However, our findings emphasize the need for further development to enhance the model's ability to manage more complex spatial configurations.
 
 ## Contributions
 
+Both team members worked together to get the authors github repository to work in our environment as well as organizational planning. Afterwards, while still cooperating for most of the work, Valentina took charge of the implementation of the experiments and Simon took control of research and writing process.
 
 ## Bibliography
 
