@@ -49,7 +49,7 @@ In order for the model to achieve its ability to allow fine-grained control over
 
 
 
-**UniFusion Block**: This block integrates various instance-level conditions into the same feature space, efficiently incorporating instance-level locations and text prompts into the visual tokens from the base diffusion model. Unlike previous methods, this approach does not require separate architectures or complex preprocessing steps for different types of inputs. The UniFusion block is responsible for this integration process and placed between the self-attention and cross-attention layers of the base model. During location parameterization, numerous location formats are transformed into 2D points on which the Instance Tokenizer applies a Fourier mapping. The text prompt is encoded using a CLIP text encoder and these embeddings (location and text) are then turned to a single token embedding for each instance through an MLP.
+**UniFusion Block**: This block integrates various instance-level conditions into the same feature space, efficiently incorporating instance-level locations and text prompts into the visual tokens from the base diffusion model. Unlike previous methods, this approach does not require separate architectures or complex preprocessing steps for different types of inputs. The UniFusion block is responsible for this integration process and is placed between the self-attention and cross-attention layers of the base model. During location parameterization, numerous location formats are transformed into 2D points on which the Instance Tokenizer applies a Fourier mapping. The text prompt is encoded using a CLIP text encoder and these embeddings (location and text) are then turned to a single token embedding for each instance through an MLP. Another important part plays the instance masked attention preventing information leakage across instances.
 
 
 
@@ -59,11 +59,11 @@ In order for the model to achieve its ability to allow fine-grained control over
 
 
 
-**ScaleU Block**: The ScaleU block recalibrates the base features and the low-frequency components within the skip connections of the UNet architecture. This recalibration improves the fidelity and coherence of the generated images by ensuring that the model can better adhere to the specified layout conditions. Specifically, this block includes two learnable, channel-wise scaling vectors for the features which are integrated into each UNET's decoder blocks. By dynamically adjusting the scaling of these features, it ensures a balance between global and fine-grained structures, addressing the issue of blending them together. 
+**ScaleU Block**: The ScaleU block introduces two learnable, channel-wise vectors for the main and skip-connected features. They are integrated into each UNET's decoder blocks and by dynamically adjusting the scaling of these features, it ensures a balance between global and fine-grained structures, addressing the issue of blending them together. For the skip-connected features only the low-frequency components are selected. This recalibration improves the fidelity and coherence of the generated images by ensuring that the model can better adhere to the specified layout conditions.
 ![Figure 1](docs/img5.png)
 
 
-**Multi-instance Sampler**: This final component addresses a common challenge in multi-instance generation; information leakage and confusion between the conditions of different instances. The Multi-instance Sampler reduces these issues by separating the denoising process of each instance, thereby preserving the distinct attributes and locations specified for each object. This isolation is achieved through a series of controlled sampling steps, which ensure that each was generated without interference from others. These individual latents are then combined with the global latent by averaging.
+**Multi-instance Sampler**: The final component addresses a common challenge in multi-instance generation; information leakage and confusion between the conditions of different instances. The Multi-instance Sampler reduces these issues by separating the denoising process of each instance, thereby preserving the distinct attributes and locations specified for each object. This isolation is achieved through a series of controlled sampling steps, which ensure that each was generated without interference from others. These individual latents are then combined with the global latent by averaging. This component can easily be used to improve other location-conditioned models.
 
 
 
@@ -75,7 +75,7 @@ In order for the model to achieve its ability to allow fine-grained control over
 
 
 
-Through these innovations, InstanceDiffusion significantly surpasses the performance of previous state-of-the-art models. The model demonstrates superior capabilities in scenarios that require complex instance specifications such as bounding boxes, instance masks, points, and scribbles. For example, on the COCO dataset, InstanceDiffusion outperforms prior models.
+Through these innovations, InstanceDiffusion significantly surpasses the performance of previous state-of-the-art models. The model demonstrates superior capabilities in scenarios that require complex instance specifications such as bounding boxes, instance masks, points, and scribbles. For example, on the COCO dataset, InstanceDiffusion outperforms prior models significantly in various metrics.
 
 
 
@@ -111,7 +111,7 @@ The development of InstanceDiffusion builds upon a huge body of work in the fiel
 #### Traditional Image Generation Models
 
 
-Traditional text-to-image models, such as Generative Adversarial Networks (GANs), rely on a generator as well as a discriminator to create images from textual descriptions. While GANs have been successfully producing high-quality images, they struggle with stability during training, artifacts and certainly a lack of precise control over specific elements in the image.
+Traditional text-to-image models, such as Generative Adversarial Networks (GANs), rely on two seperate networks to create images from textual descriptions. While GANs have been successfully producing high-quality images, they struggle with stability during training, artifacts and certainly a lack of precise control over specific elements in the image.
 
 
 
@@ -120,14 +120,13 @@ Traditional text-to-image models, such as Generative Adversarial Networks (GANs)
 
 
 
-
-In contrast, diffusion models, such as Denoising Diffusion Models (DDPMs) and score-based generative models (SGMs), work by progressively adding noise to an image and are only learning to reverse the process to generate samples. This allows for a more iterative and refined image generation. This approach enhances image quality and provides better control over the generation process.
+In contrast, diffusion models, such as Denoising Diffusion Models (DDPMs) and score-based generative models (SGMs), work by progressively adding noise to an image and are only learning to reverse the process to generate samples. This allows for a more iterative and refined image generation and additionally enhances image quality and provides better control over the generation process.
 
 
 #### Conditioned Diffusion Models
 
 
-Recent advancements in diffusion models have focused on conditioning mechanisms to control the generation process in specific ways. Notable works include GLIGEN [3] and ControlNet [4]. GLIGEN supports controlled image generation using similar conditions like bounding boxes [3]. However, it requires a separate model for each type of input, therefore increasing complexity and limiting flexibility. ControlNet on the other hand adds semantic segmentation masks to guide the image generation [4]. Similar to GLIGEN, this model also struggles with handling multiple input types simultaneously.
+Most recent advancements in diffusion models have focused on conditioning mechanisms to control the generation process in specific ways. Notable works include GLIGEN [3] and ControlNet [4]. GLIGEN supports controlled image generation using similar conditions like bounding boxes [3]. However, it requires a separate model for each type of input, therefore increasing complexity and limiting flexibility. ControlNet on the other hand adds semantic segmentation masks to guide the image generation [4]. Similar to GLIGEN, this model also struggles with handling multiple input types simultaneously.
 
 
 
@@ -135,11 +134,6 @@ Recent advancements in diffusion models have focused on conditioning mechanisms 
 InstanceDiffusion addresses these limitations by introducing a unified approach that integrates multiple forms of instance-level conditions. This unified model enhances the versatility and accuracy for detailed and customized image generation tasks.
 
 
-
-
-
-
-Therefore, InstanceDiffusion represents a significant step forward for generative models, offering unprecedented control and precision in image generation tasks. This model not only advances the technical capabilities of diffusion models but also opens new areas for practical applications in several fields such as digital marketing, content creation, and interactive media.
 
 
 
@@ -154,7 +148,7 @@ Therefore, InstanceDiffusion represents a significant step forward for generativ
 
 
 
-The InstanceDiffusion model represents a significant advancement in the field of text-to-image generation. We critically examine its strengths, weaknesses, and the potential that inspired our group to further explore the model and investigate its limitations, particularly in handling overlapping content.
+The InstanceDiffusion model represents a significant advancement in the field of text-to-image generation, offering unprecedented control and precision in image generation tasks. We critically examine its strengths, weaknesses, and the potential that inspired our group to further explore the model and investigate its limitations, particularly in handling overlaps.
 
 
 
@@ -189,17 +183,17 @@ Despite its significant strengths, InstanceDiffusion has some weaknesses worth n
 
 
 
-Additionally, while the unified approach simplifies integration, the implementation of the UniFusion and ScaleU blocks adds complexity. This can pose challenges for researchers or small teams attempting to replicate or extend the model (like us), limiting its accessibility and ease of use.
+Additionally, while the unified approach simplifies integration, the implementation of the UniFusion and ScaleU blocks adds complexity. This can pose challenges for researchers or small teams (like us) attempting to replicate or extend the model, limiting its accessibility and ease of use.
 
 
 
 
-Followingly, the enhanced capabilities of InstanceDiffusion come with increased computational requirements. Training and inference with this model demands significant computational resources, which limits its scalability and accessibility, particularly those with limited hardware capabilities.
+Therefore, the enhanced capabilities of InstanceDiffusion come with significant computational requirements. Training and inference with this model demands significant computational resources, which limits its scalability and accessibility, particularly those with limited hardware capabilities.
 
 
 
 
-Furthermore, the exploration of these instance attributes in the original paper is somewhat limited.
+Finally, the exploration of these instance attributes in the original paper is somewhat limited.
 
 
 
@@ -231,11 +225,11 @@ In summary, InstanceDiffusion presents a robust framework for precise instance-l
 
 
 
-Our work focuses on thoroughly testing the InstanceDiffusion model, particularly investigating its limitations in handling overlapping instances. Recognizing this issue highlighted in the original paper, we aimed to reproduce the authors’ findings and extend the investigation into specific scenarios where the model struggles.
+Our work focuses on thoroughly testing the InstanceDiffusion model, particularly investigating its limitations in handling overlapping instances. Recognizing this issue highlighted in the original paper, we aimed to reproduce the authors’ findings in this regard and extend the investigation into specific scenarios where the model struggles.
 
 We conducted an analysis of the model’s iterative generation process, emphasizing inputs defined by points and bounding boxes. By systematically varying the order and proximity of these inputs, we identified specific conditions under which the model fails to maintain clarity and consistency.
 This involved analyzing the generated images for artifacts and blending issues and assessing the model’s overall performance in maintaining instance clarity and distinction.
-Due to the significant computational requirements for reproducing the quantitative results as well as for actually extending the model, our goal was not to enhance the model but to provide a deeper understanding of its weaknesses and the conditions that made the model produce these failures.
+Due to the significant computational requirements for reproducing the quantitative results as well as for extending the model, our goal was to provide a deeper understanding of its weaknesses and the conditions that made the model produce these failures.
 
 ## Experimental Results
 
@@ -247,7 +241,7 @@ To offer practical insights, we have documented our experiments in two separate 
 
 #### Test 0
 
-We used different position inputs to describe a certain position of a crogi to visualize how each of them would work.
+We used different position inputs to describe a certain position of a corgi to visualize how each of them would work.
 
 <p style="text-align: center;">
   <img src="./output_tests/gc7.5-seed0-alpha0.8/0_inputs.png" alt="Crogi point inputs" width="35%" style="margin: 0 1%;"/>
@@ -364,23 +358,20 @@ With *Test 0* we showcased the different location inputs and their variability i
 4. Masks are the most restrictive input type. They define the precise pixel-wise location where the instance appears in the image and offer exact guidance on the shape and extent of the instance, leaving little to interpretation compared to the above methods.
 
 
-With *Test 1* we visualized information leakage between instances placed close to each other. They  affected each other’s attributes. It ocurred despite the improvements made by the Multi-instance Sampler. 
+With *Test 1* we investigated the model’s performance with points as input. Initially, the balloons were placed with large distance between them, resulting in clear and distinct features. However, when decreasing the distance between the balloons, the model failed to generate them correctly, blending features and creating unclear boundaries. This visualized information leakage between instances placed close to each other. They significantly affected each other’s attributes despite the improvements made by the Multi-instance Sampler. 
 
-With *Test 2*, we showed that instances can blend together during the averaging process. Specifically, we encountered the issue then we attempted to provide instructions for which fruit is in front.
+With *Test 2*, we explored how the model’s manages with positioning cues using bounding boxes. This showed that instances can blend together during the averaging process. Specifically, we encountered the issue then we attempted to provide instructions for which fruit is in front.
 
 With *Test 3* we showed that describing unusual positions for objects may lead to inconsistent or poor results. The position of the flower in relation to the prompt contradicted the physics of perspective. We chose to visualize this not because it showcases a difference in the instance diffusion implementation, but because we believe it offers an interesting observation that could enhance the understanding of how the model works.
 
-With *Test 4* we showed that in the case of using bounding boxes, additional scribbles have no effect. More investigations are needed.
-In the UniFusion block different inputs are separately tokenized and fed to the encoder.
+With *Test 4* we showed that in the case of using bounding boxes, additional scribbles have no effect. The paper demonstarates how adding more inputs improves the precision of the output, however, we notice that in this case additional scribbles have no effect, more investigations are needed.
 
 With *Test 5* we successfully tested the generation of a complex animal facing both left and right. We showed high-quality output images, despite some artifacts.
 
-### **Improvements**
-<!-- ToDo: Mention an improvement on the input plots we made - added points and colors. I'm currently fixing the scribbles and masks. I'm not sure if we should have a whole section for that -->
 
 ## **Future Work**
 
-Future work could aim to improve the model's spatial understanding by incorporating object ordering into the input. This would involve integrating a dataset that includes depth or object order information and retraining the model to capture the positional relationships of objects. Additionally, this approach could enable the use of the Multi-instance Sampler with a crop-and-paste method, addressing issues related to the close proximity and overlap of objects, and resulting in more precise and contextually accurate generations.
+Future work could aim to improve the model's spatial understanding by incorporating object ordering into the input. This would involve integrating a dataset that includes depth or object order information and retraining the model to capture the positional relationships of objects. Additionally, this approach could explore the use of the Multi-instance Sampler with a crop-and-paste method further, addressing issues related to the close proximity and overlap of objects, and resulting in more precise and contextually accurate generations.
 
 
 ## **Conclusion**
@@ -389,9 +380,9 @@ Our exploration of the InstanceDiffusion model has provided significant insights
 
 We successfully generated some of the original images of the InstanceDiffusion model, confirming its superior performance in generating precise and high-quality images based on instance-level conditions.
 
-Through our experiments, we identified significant weaknesses in the model's performance when handling overlapping instances. The model often struggled to maintain clarity and distinct features. These findings highlight the challenges the model faces in maintaining the separation and accurate representation of closely positioned objects.
+Through our experiments, we identified significant weaknesses in the model's performance when handling overlapping instances. The model often struggled to maintain clarity and distinct features. These findings highlight the challenges the model faces in maintaining a separation and an accurate representation of closely positioned objects while producing logically sound images.
 
-The InstanceDiffusion model demonstrates significant potential in various industries which  require detailed and customizable image generation. However, our findings emphasize the need for further development to enhance the model's ability to manage more complex spatial configurations.
+The InstanceDiffusion model demonstrates significant potential in various industries which require detailed and customizable image generation. However, our findings emphasize the need for further development to enhance the model's ability to manage more complex spatial configurations and efficiency improvements.
 
 ## Contributions
 
