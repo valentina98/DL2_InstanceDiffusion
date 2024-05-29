@@ -104,8 +104,9 @@ def run(meta, model, autoencoder, text_encoder, diffusion, clip_model, clip_proc
     image_ids = list(range(start,start+config.num_images))
     # print(image_ids)
 
+    # print("meta", meta)
     # visualize the bounding boxes
-    image_inputs = draw_inputs( meta["locations"], meta["phrases"], meta["prompt"] + ";alpha=" + str(meta['alpha_type'][0]), meta["points"], meta["scribbles"])
+    image_inputs = draw_inputs( meta["locations"], meta["phrases"], meta["prompt"] + ";alpha=" + str(meta['alpha_type'][0]), meta["points"], meta["scribbles"], meta["segs"])
     img_name = os.path.join( output_folder, str(image_ids[0])+'_inputs.png' )
     image_inputs.save( img_name )
     print("saved image with inputs at {}".format(img_name))
@@ -147,37 +148,57 @@ def rescale_points(point, width, height):
 def rescale_scribbles(scribbles, width, height):
     return [[scribble[0]/float(width), scribble[1]/float(height)] for scribble in scribbles]
 
-def draw_inputs(boxes, descriptions=None, caption=None, points=None, scribbles=None):
+def draw_inputs(boxes, descriptions=None, caption=None, points=None, scribbles=None, masks=None):
     width, height = 512, 512
     image = Image.new("RGBA", (width, height), (255, 255, 255, 255))
-    draw = ImageDraw.Draw(image)   
-    boxes = [ [ int(x*width) for x in box ] for box in boxes]
+    draw = ImageDraw.Draw(image)
+    boxes = [[int(x * width) for x in box] for box in boxes]
     
-    # Generate a random color for each description
-    color_list = [generate_random_color() for _ in descriptions]
+    # Determine the longest input list
+    num_objects = len(descriptions)
 
-    for i, box in enumerate(boxes):
-        draw.rectangle(((box[0], box[1]), (box[2], box[3])), outline=color_list[i], width=2)
+    # Generate a random color for each object
+    color_list = [generate_random_color() for _ in range(num_objects)]
 
-    for idx, point in enumerate(points):
-        x = int(point[0] * width)
-        y = int(point[1] * height)
-        draw.ellipse([x - 5, y - 5, x + 5, y + 5], fill=color_list[idx])
+    # Draw boxes
+    for idx, box in enumerate(boxes):
+        draw.rectangle(((box[0], box[1]), (box[2], box[3])), outline=color_list[idx], width=2)
 
-    # for idx, scribble in enumerate(scribbles):
-    #     scribble = [(int(p[0] * width), int(p[1] * height)) for p in scribble]
-    #     print("scribble: ", scribble)
-    #     draw.line(scribble, fill=color_list[idx], width=3)
+    # Draw points
+    if points:
+        for idx, point in enumerate(points):
+            if idx < num_objects:
+                x = int(point[0] * width)
+                y = int(point[1] * height)
+                draw.ellipse([x - 5, y - 5, x + 5, y + 5], fill=color_list[idx])
 
-    if descriptions is not None:
+    # print("scribbles: ", scribbles)
+    # Draw scribbles
+    if scribbles:
+        for idx, scribble in enumerate(scribbles):
+            if isinstance(scribble, list) and len(scribble) % 2 == 0:
+                scribble_points = [(scribble[i], scribble[i + 1]) for i in range(0, len(scribble), 2)]
+                draw.line(scribble_points, fill=color_list[idx], width=3)
+
+    # print("masks: ", masks)
+    # Draw masks
+    if masks.any():
+        for idx, mask in enumerate(masks):
+            for y in range(len(mask)):
+                for x in range(len(mask[y])):
+                    if mask[y][x] != 0:
+                        image.putpixel((x, y), color_list[idx] + (128,))  # Adding semi-transparency
+
+    # Draw descriptions
+    if descriptions:
         for idx, box in enumerate(boxes):
             draw.text((box[0], box[1]), descriptions[idx], fill=color_list[idx])
-            
-    if caption is not None:
+
+    # Draw boxes
+    if caption:
         draw.text((0, 0), caption, fill="black")
     
     return image
-
 def generate_random_color():
     return tuple(random.randint(0, 255) for _ in range(3))
 
