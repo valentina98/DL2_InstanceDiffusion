@@ -193,7 +193,7 @@ Therefore, the enhanced capabilities of InstanceDiffusion come with significant 
 
 
 
-Finally, the exploration of these instance attributes in the original paper is somewhat limited.
+Finally, the exploration of these instance attributes in the original paper is quiet limited.
 
 
 
