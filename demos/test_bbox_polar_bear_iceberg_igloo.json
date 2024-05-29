@@ -1,0 +1,22 @@
+{
+  "caption": "a polar bear on an iceberg with a nearby igloo under a clear blue sky",
+  "width": 800,
+  "height": 600,
+  "annos": [
+    {
+      "category_name": "polar bear",
+      "caption": "a polar bear standing majestically on an iceberg",
+      "bbox": [100, 300, 200, 200]
+    },
+    {
+      "category_name": "iceberg",
+      "caption": "a vast iceberg floating in the chilly sea",
+      "bbox": [50, 200, 500, 350]
+    },
+    {
+      "category_name": "igloo",
+      "caption": "an igloo neatly built with blocks of ice, providing shelter",
+      "bbox": [400, 100, 300, 200]
+    }
+  ]
+}

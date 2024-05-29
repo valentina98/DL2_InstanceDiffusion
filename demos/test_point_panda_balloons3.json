@@ -1,0 +1,17 @@
+{
+  "caption": "A panda with three colorful balloons in a lush green park",
+  "width": 800,
+  "height": 600,
+  "annos": [
+    {
+      "category_name": "panda",
+      "caption": "a playful panda sitting on the grass",
+      "point": [250, 350]
+    },
+    {
+      "category_name": "3 baloons",
+      "caption": "3 baloons - a yellow, a red and a blue baloon floating in the air",
+      "point": [550, 180]
+    }
+  ]
+}

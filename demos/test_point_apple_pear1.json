@@ -1,0 +1,17 @@
+{
+  "caption": "an apple and a pear on a wooden table",
+  "width": 500,
+  "height": 400,
+  "annos": [
+    {
+      "category_name": "apple",
+      "caption": "a ripe red apple",
+      "point": [200, 250]
+    },
+    {
+      "category_name": "pear",
+      "caption": "a yellow pear",
+      "point": [250, 250]
+    }
+  ]
+}

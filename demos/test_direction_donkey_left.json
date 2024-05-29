@@ -1,0 +1,33 @@
+{
+    "caption": "A donkey standing in a field, looking to the left.",
+    "width": 512,
+    "height": 512,
+    "annos": [
+      {
+        "bbox": [100, 150, 312, 200],
+        "category_name": "donkey",
+        "caption": "A full view of a donkey"
+      },
+      {
+        "bbox": [100, 150, 100, 100],
+        "category_name": "donkey head",
+        "caption": "The head of the donkey"
+      },
+      {
+        "bbox": [100, 210, 40, 30],
+        "category_name": "donkey mouth",
+        "caption": "The mouth of the donkey"
+      },
+      {
+        "bbox": [100, 150, 30, 40],
+        "category_name": "donkey ear",
+        "caption": "Ear of the donkey"
+      },
+      {
+        "bbox": [170, 150, 30, 40],
+        "category_name": "donkey ear",
+        "caption": "Ear of the donkey"
+      }
+    ]
+  }
+  

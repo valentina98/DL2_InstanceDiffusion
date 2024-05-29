@@ -1,0 +1,22 @@
+{
+    "caption": "a ceramic vase, a flower and a wooden table under soft lighting",
+    "width": 600,
+    "height": 400,
+    "annos": [
+        {
+            "category_name": "vase",
+            "caption": "a tall ceramic vase on the table covered by the flower",
+            "bbox": [270, 170, 60, 180]
+        },
+        {
+            "category_name": "flower",
+            "caption": "a flower positioned at the front",
+            "bbox": [200, 280, 270, 30]
+        },
+        {
+            "category_name": "table",
+            "caption": "a large, sturdy wooden table",
+            "bbox": [50, 270, 500, 120]
+        }
+    ]
+}
