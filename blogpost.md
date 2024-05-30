@@ -280,8 +280,6 @@ We used bounding boxes to generate images featuring an apple and a pear, positio
 <p style="text-align: center;">
   <img src="./output_tests/gc7.5-seed0-alpha0.8/119_inputs.png" alt="Apple and pear bounding boxes" width="22%" style="margin: 0 1%;"/>
   <img src="./output_tests/gc7.5-seed0-alpha0.8/120_xl_s0.4_n20.png" alt="Apple and pear" width="22%" style="margin: 0 1%;"/>
-<!-- </p>
-<p style="text-align: center;"> -->
   <img src="./output_tests/gc7.5-seed0-alpha0.8/136_inputs.png" alt="Pear and Apple bounding boxes" width="22%" style="margin: 0 1%;"/>
   <img src="./output_tests/gc7.5-seed0-alpha0.8/137_xl_s0.4_n20.png" alt="Pear and apple" width="22%" style="margin: 0 1%;"/>
 </p>
@@ -290,9 +288,9 @@ We used bounding boxes to generate images featuring an apple and a pear, positio
   <img src="./output_tests/gc7.5-seed0-alpha0.8/153_inputs.png" alt="Apple in front of a pear bounding boxes" width="30%" style="margin: 0 1%;"/>
   <img src="./output_tests/gc7.5-seed0-alpha0.8/153_xl_s0.4_n20.png" alt="Merged fruits" width="30%" style="margin: 0 1%;"/>
   <img src="./output_tests/gc7.5-seed0-alpha0.8/155_xl_s0.4_n20.png" alt="Merged fruits" width="30%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/177_inputs.png" alt="Apple in front of a pear points" width="30%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/177_xl_s0.4_n20.png" alt="Fruits" width="30%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/179_xl_s0.4_n20.png" alt="Merged fruits" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/187_inputs.png" alt="Apple in front of a pear points" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/187_xl_s0.4_n20.png" alt="Fruits" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/189_xl_s0.4_n20.png" alt="Merged fruits" width="30%" style="margin: 0 1%;"/>
 </p>
 
 **Figure 2** Images of a vase and flower using bounding boxes. Flower placement is incorrect due to perspective cues (bottom), despite specifying the flower should be in front.
@@ -301,25 +299,28 @@ We used bounding boxes to generate images featuring an apple and a pear, positio
 
 We used bounding boxes to define the positions of a vase, a flower and a table. We explicitly specified in the prompt that the flower should be in the front.
 
+
 <p style="text-align: center;">
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/194_inputs.png" alt="Vase and flower bounding boxes" width="35%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/196_xl_s0.4_n20.png" alt="Vase in front of a flower" width="35%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/197_xl_s0.4_n20.png" alt="Vase behind a flower" width="35%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/200_xl_s0.4_n20.png" alt="Vase behind a flower" width="35%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/204_inputs.png" alt="Vase and flower bounding boxes" width="35%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/206_xl_s0.4_n20.png" alt="Vase in front of a flower" width="35%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/207_xl_s0.4_n20.png" alt="Vase behind a flower" width="35%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/210_xl_s0.4_n20.png" alt="Vase behind a flower" width="35%" style="margin: 0 1%;"/>
 </p>
+
 
 **Figure 3** Images of an apple and pear using overlapping bounding boxes. The model struggles with correct placement, often blending the two fruits.
 
 #### Test 4
 
-We created a scene featuring a bear, an iceberg, and an igloo using bounding boxes. We tried to add scribbles as cue whether the igloo or the iceberg should be in front. We attempted to position the igloo behind the iceberg by omitting points for the igloo in the overlapping area. We also tried omitting points for the iceberg at the overlapping area. This approach,  however, didn't. The same images were generated regardless of the scribbles.
-
-<!-- *ToDo: Fix the scribble implementation* -->
+We created a scene featuring a bear, an iceberg, and an igloo using bounding boxes. We tried to add scribbles as cue whether the igloo or the iceberg should be in front. We attempted to position the igloo behind the iceberg by positioning the scribbles for the igloo away fron the overlapping area. We also tried the same with the iceberg. This approach, however, didn't work. Similar images were generated.
 
 <p style="text-align: center;">
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/211_inputs.png" alt="Polar bear, iceberg and an igloo bounding boxes" width="30%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/211_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the front" width="30%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/213_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the back" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/221_inputs.png" alt="Polar bear, iceberg and an igloo bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/221_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the front" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/228_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the back" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/238_inputs.png" alt="Polar bear, iceberg and an igloo bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/238_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the front" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/245_xl_s0.4_n20.png" alt="Polar bear, iceberg and an igloo at the back" width="30%" style="margin: 0 1%;"/>
 </p>
 
 **Figure 4**  Scenes with a bear, iceberg, and igloo using bounding boxes and scribbles. Scribbles did not affect the depth placement as intended.
@@ -329,19 +330,19 @@ We created a scene featuring a bear, an iceberg, and an igloo using bounding box
 We generated images of a complex animal oriented both left and right. Specifically, we created images of a donkey, providing detailed bounding boxes for its head, mouth, and ears. This approach resulted in high-quality output images.
 
 <p style="text-align: center;">
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/262_inputs.png" alt="Donkey looking to the left bounding boxes" width="35%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/264_xl_s0.4_n20.png" alt="Donkey looking to the left" width="35%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/279_inputs.png" alt="Donkey looking to the right bounding boxes" width="35%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/281_xl_s0.4_n20.png" alt="Donkey looking to the right" width="35%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/268_xl_s0.4_n20.png" alt="Donkey looking to the left" width="35%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/285_xl_s0.4_n20.png" alt="Donkey looking to the right" width="35%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/255_inputs.png" alt="Donkey looking to the left bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/257_xl_s0.4_n20.png" alt="Donkey looking to the left" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/261_xl_s0.4_n20.png" alt="Donkey looking to the left" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/272_inputs.png" alt="Donkey looking to the right bounding boxes" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/274_xl_s0.4_n20.png" alt="Donkey looking to the right" width="30%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/278_xl_s0.4_n20.png" alt="Donkey looking to the left" width="30%" style="margin: 0 1%;"/>
 </p>
 
 We also encountered some artifacts:
 
 <p style="text-align: center;">
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/262_xl_s0.4_n20.png" alt="Donkey looking to the left (went wrong)" width="35%" style="margin: 0 1%;"/>
-  <img src="./output_tests/gc7.5-seed0-alpha0.8/279_xl_s0.4_n20.png" alt="Donkey looking to the right (went wrong)" width="35%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/255_xl_s0.4_n20.png" alt="Donkey looking to the left (went wrong)" width="35%" style="margin: 0 1%;"/>
+  <img src="./output_tests/gc7.5-seed0-alpha0.8/272_xl_s0.4_n20.png" alt="Donkey looking to the right (went wrong)" width="35%" style="margin: 0 1%;"/>
 </p>
 
 **Figure 5** Images of a donkey facing left and right using bounding boxes. Successful outputs (top) and artifacts like generating two donkeys (bottom).
@@ -364,7 +365,7 @@ With *Test 2*, we explored how the model’s manages with positioning cues using
 
 With *Test 3* we showed that describing unusual positions for objects may lead to inconsistent or poor results. The position of the flower in relation to the prompt contradicted the physics of perspective. We chose to visualize this not because it showcases a difference in the instance diffusion implementation, but because we believe it offers an interesting observation that could enhance the understanding of how the model works.
 
-With *Test 4* we showed that in the case of using bounding boxes, additional scribbles have no effect. The paper demonstarates how adding more inputs improves the precision of the output, however, we notice that in this case additional scribbles have no effect, more investigations are needed.
+With *Test 4* we showed that in the case of using bounding boxes, scribbles have little effect. We attribute this to the bounding box being a more restrictive input, however more investigations are needed.
 
 With *Test 5* we successfully tested the generation of a complex animal facing both left and right. We showed high-quality output images, despite some artifacts.
 
