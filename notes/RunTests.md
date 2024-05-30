@@ -11,7 +11,7 @@ Prerequisites (described in RunPaper.md):
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
   --num_images 8 \
   --output ./output_tests/ \
-  --input_json demos/test_point_crogi_kitchen.json \
+  --input_json demos/test_point_corgi_kitchen.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_point.yaml \
   --guidance_scale 7.5 \
@@ -23,7 +23,7 @@ Prerequisites (described in RunPaper.md):
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
   --num_images 8 \
   --output ./output_tests/ \
-  --input_json demos/test_scribble_crogi_kitchen.json \
+  --input_json demos/test_scribble_corgi_kitchen.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_scribble.yaml \
   --guidance_scale 7.5 \
@@ -35,7 +35,7 @@ Prerequisites (described in RunPaper.md):
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
   --num_images 8 \
   --output ./output_tests/ \
-  --input_json demos/test_bbox_crogi_kitchen.json \
+  --input_json demos/test_bbox_corgi_kitchen.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_box.yaml \
   --guidance_scale 7.5 \
@@ -47,7 +47,7 @@ Prerequisites (described in RunPaper.md):
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
   --num_images 8 \
   --output ./output_tests/ \
-  --input_json demos/test_mask_crogi_kitchen.json \
+  --input_json demos/test_mask_corgi_kitchen.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
   --test_config configs/test_mask.yaml \
   --guidance_scale 7.5 \
@@ -154,7 +154,7 @@ When the 2 fruits are specified at the same hight and same size, the model assum
   --cascade_strength 0.4 
 
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 3 \
+  --num_images 8 \
   --output ./output_tests/ \
   --input_json demos/test_bbox_pear_apple2.json \
   --ckpt pretrained/instancediffusion_sd15.pth \
@@ -229,18 +229,6 @@ This did not work. The same images got generated.
 In the UniFusion block different inputs are separately tokenized and fed to the encoder. It is described that adding more inputs improves the precision of the output, which we see in the demos, however, we notice that there is no effect in the case of adding scribbles.
 
 ```bash
-/home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
-  --num_images 8 \
-  --output ./output_tests/ \
-  --input_json demos/test_bbox_polar_bear_iceberg_igloo.json \
-  --ckpt pretrained/instancediffusion_sd15.pth \
-  --test_config configs/test_scribble.yaml \
-  --guidance_scale 7.5 \
-  --alpha 0.8 \
-  --seed 0 \
-  --mis 0.36 \
-  --cascade_strength 0.4 
-
 /home/scur0411/.conda/envs/instdiff1/bin/python inference.py \
   --num_images 8 \
   --output ./output_tests/ \

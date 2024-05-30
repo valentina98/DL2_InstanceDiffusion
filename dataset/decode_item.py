@@ -72,9 +72,16 @@ def binary_mask_to_polygon(binary_mask, tolerance=0):
     return polygons
 
 def decodeToBinaryMask(rle):
-    mask = coco_mask.decode([rle])
-    binaryMask = mask.astype('bool') 
-    return binaryMask
+    print("RLE: ", rle)
+    try:
+        mask = coco_mask.decode(rle)
+        binaryMask = mask.astype('bool')
+        print("Binary Mask: ", binaryMask)
+        return binaryMask
+    except Exception as e:
+        print(f"Error decoding RLE: {e}")
+        return None
+
 
 def equally_spaced_sampling_with_replacement(points_list, sample_size):
     """

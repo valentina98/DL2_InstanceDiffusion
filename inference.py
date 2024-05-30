@@ -104,9 +104,8 @@ def run(meta, model, autoencoder, text_encoder, diffusion, clip_model, clip_proc
     image_ids = list(range(start,start+config.num_images))
     # print(image_ids)
 
-    # print("meta", meta)
     # visualize the bounding boxes
-    image_inputs = draw_inputs( meta["locations"], meta["phrases"], meta["prompt"] + ";alpha=" + str(meta['alpha_type'][0]), meta["points"], meta["scribbles"], meta["segs"])
+    image_inputs = draw_inputs( meta["locations"], meta["phrases"], meta["prompt"] + ";alpha=" + str(meta['alpha_type'][0]), meta["points"], meta["scribbles"], meta["polygons"])
     img_name = os.path.join( output_folder, str(image_ids[0])+'_inputs.png' )
     image_inputs.save( img_name )
     print("saved image with inputs at {}".format(img_name))
@@ -145,8 +144,8 @@ def get_point_from_box(bbox):
 def rescale_points(point, width, height):
     return [point[0]/float(width), point[1]/float(height)]
 
-def rescale_scribbles(scribbles, width, height):
-    return [[scribble[0]/float(width), scribble[1]/float(height)] for scribble in scribbles]
+def rescale_scribbles(scribble, width, height):
+    return [(scribble[i], scribble[i + 1]) for i in range(0, len(scribble), 2)]
 
 def draw_inputs(boxes, descriptions=None, caption=None, points=None, scribbles=None, masks=None):
     width, height = 512, 512
@@ -155,10 +154,10 @@ def draw_inputs(boxes, descriptions=None, caption=None, points=None, scribbles=N
     boxes = [[int(x * width) for x in box] for box in boxes]
     
     # Determine the longest input list
-    num_objects = len(descriptions)
+    # num_objects = len(descriptions)
 
     # Generate a random color for each object
-    color_list = [generate_random_color() for _ in range(num_objects)]
+    color_list = [generate_random_color() for _ in range(50)]
 
     # Draw boxes
     for idx, box in enumerate(boxes):
@@ -167,27 +166,30 @@ def draw_inputs(boxes, descriptions=None, caption=None, points=None, scribbles=N
     # Draw points
     if points:
         for idx, point in enumerate(points):
-            if idx < num_objects:
-                x = int(point[0] * width)
-                y = int(point[1] * height)
-                draw.ellipse([x - 5, y - 5, x + 5, y + 5], fill=color_list[idx])
+            x = int(point[0] * width)
+            y = int(point[1] * height)
+            draw.ellipse([x - 5, y - 5, x + 5, y + 5], fill=color_list[idx])
 
-    # print("scribbles: ", scribbles)
     # Draw scribbles
     if scribbles:
         for idx, scribble in enumerate(scribbles):
-            if isinstance(scribble, list) and len(scribble) % 2 == 0:
-                scribble_points = [(scribble[i], scribble[i + 1]) for i in range(0, len(scribble), 2)]
+            # print(idx, scribble)
+            if isinstance(scribble, list): # Check if the first element is a tuple or a list
+                if isinstance(scribble[0], (tuple, list)):
+                    scribble_points = [(int(point[0]), int(point[1])) for point in scribble]
+                else:
+                    scribble_points = [(int(scribble[i]), int(scribble[i + 1])) for i in range(0, len(scribble), 2)]
                 draw.line(scribble_points, fill=color_list[idx], width=3)
+            else:
+                print(f"Invalid scribble format at index {idx}: {scribble}")
 
-    # print("masks: ", masks)
-    # Draw masks
-    if masks.any():
-        for idx, mask in enumerate(masks):
-            for y in range(len(mask)):
-                for x in range(len(mask[y])):
-                    if mask[y][x] != 0:
-                        image.putpixel((x, y), color_list[idx] + (128,))  # Adding semi-transparency
+    # # Draw masks
+    # if masks:
+    #     for idx, mask in enumerate(masks):
+    #         for y in range(len(mask)):
+    #             for x in range(len(mask[y])):
+    #                 if mask[y][x] != 0:
+    #                     image.putpixel((x, y), color_list[idx] + (128,))  # Adding semi-transparency
 
     # Draw descriptions
     if descriptions:
