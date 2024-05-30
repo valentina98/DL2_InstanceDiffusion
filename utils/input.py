@@ -48,7 +48,7 @@ def prepare_batch(meta, batch=1, max_objs=30, model=None, processor=None, image_
     segs = meta.get("segs")
     points = meta.get("points")
 
-    phrases = [None]*len(phrases) if phrases==None else phrases 
+    phrases = [None]*len(phrases) if phrases is None else phrases
 
     boxes, masks, text_masks, text_embeddings, polygons_embeddings, scribbles_embeddings, segs_embeddings, points_embeddings = create_zero_input_tensors(max_objs, n_polygon_points, n_scribble_points)
 
@@ -57,9 +57,9 @@ def prepare_batch(meta, batch=1, max_objs=30, model=None, processor=None, image_
 
     text_features = []
     for phrase in phrases:
-        text_features.append(  get_clip_feature(model, processor, phrase, is_image=False) )
+        text_features.append(get_clip_feature(model, processor, phrase, is_image=False))
 
-    for idx, (box, text_feature, polygon, scribble, seg, point) in enumerate(zip( meta['locations'], text_features, polygons, scribbles, segs, points)):
+    for idx, (box, text_feature, polygon, scribble, seg, point) in enumerate(zip(meta['locations'], text_features, polygons, scribbles, segs, points)):
         boxes[idx] = torch.tensor(box)
         masks[idx] = 1
         if text_feature is not None:
@@ -68,27 +68,29 @@ def prepare_batch(meta, batch=1, max_objs=30, model=None, processor=None, image_
         if polygon is not None:
             polygons_embeddings[idx] = torch.tensor(polygon)
         if scribble is not None:
-            scribbles_embeddings[idx] = torch.tensor(scribble)
+            # Ensure scribble has the correct dimensions
+            scribble_tensor = torch.tensor(scribble, dtype=torch.float32).view(-1)
+            scribbles_embeddings[idx, :len(scribble_tensor)] = scribble_tensor
         if seg is not None:
             segs_embeddings[idx] = torch.tensor(seg)
         if point is not None:
             points_embeddings[idx] = torch.tensor(point)
     
         # get attention masks based on the bounding boxes
-        if use_masked_att: att_masks = get_attmask_w_box(att_masks, idx, box, image_size)
+        if use_masked_att:
+            att_masks = get_attmask_w_box(att_masks, idx, box, image_size)
 
     out = {
-        "boxes" : boxes.unsqueeze(0).repeat(batch,1,1),
-        "masks" : masks.unsqueeze(0).repeat(batch,1),
-        "text_masks" : text_masks.unsqueeze(0).repeat(batch,1)*complete_mask( meta.get("text_mask"), max_objs ),
-        "text_embeddings"  : text_embeddings.unsqueeze(0).repeat(batch,1,1),
-        'polygons': polygons_embeddings.unsqueeze(0).repeat(batch,1,1),
-        'scribbles': scribbles_embeddings.unsqueeze(0).repeat(batch,1,1),
-        'segs': segs_embeddings.unsqueeze(0).repeat(batch,1,1,1),
-        'points': points_embeddings.unsqueeze(0).repeat(batch,1,1),
+        "boxes": boxes.unsqueeze(0).repeat(batch, 1, 1),
+        "masks": masks.unsqueeze(0).repeat(batch, 1),
+        "text_masks": text_masks.unsqueeze(0).repeat(batch, 1) * complete_mask(meta.get("text_mask"), max_objs),
+        "text_embeddings": text_embeddings.unsqueeze(0).repeat(batch, 1, 1),
+        'polygons': polygons_embeddings.unsqueeze(0).repeat(batch, 1, 1),
+        'scribbles': scribbles_embeddings.unsqueeze(0).repeat(batch, 1, 1),
+        'segs': segs_embeddings.unsqueeze(0).repeat(batch, 1, 1, 1),
+        'points': points_embeddings.unsqueeze(0).repeat(batch, 1, 1),
     }
 
-    # get model inputs for each instance if MIS is applied
     if "instance_meta" in meta:
         out["instance_meta"] = []
         for i in range(len(meta['instance_meta'])):
@@ -96,7 +98,7 @@ def prepare_batch(meta, batch=1, max_objs=30, model=None, processor=None, image_
 
             boxes_[0] = torch.tensor(np.array(meta["instance_meta"][i]["locations"][0]))
             polygons_embeddings_[0] = torch.tensor(np.array(meta["instance_meta"][i]["polygons"][0]))
-            scribbles_embeddings_[0] = torch.tensor(np.array(meta["instance_meta"][i]["scribbles"][0]))
+            scribbles_embeddings_[0] = torch.tensor(np.array(meta["instance_meta"][i]["scribbles"][0])).view(-1)
             segs_embeddings_[0] = torch.tensor(np.array(meta["instance_meta"][i]["segs"][0]))
             points_embeddings_[0] = torch.tensor(np.array(meta["instance_meta"][i]["points"][0]))
             masks_[0] = 1
@@ -106,23 +108,23 @@ def prepare_batch(meta, batch=1, max_objs=30, model=None, processor=None, image_
                 text_embeddings_[0] = text_features[i]
 
             out["instance_meta"].append({
-                "boxes" : boxes_.unsqueeze(0).repeat(batch,1,1),
-                "masks" : masks_.unsqueeze(0).repeat(batch,1),
-                "text_masks" : text_masks_.unsqueeze(0).repeat(batch,1)*complete_mask( meta['instance_meta'][i].get("text_mask"), max_objs ),
-                "text_embeddings"  : text_embeddings_.unsqueeze(0).repeat(batch,1,1),
-                'polygons': polygons_embeddings_.unsqueeze(0).repeat(batch,1,1),
-                'scribbles': scribbles_embeddings_.unsqueeze(0).repeat(batch,1,1),
-                'segs': segs_embeddings_.unsqueeze(0).repeat(batch,1,1,1),
-                'points': points_embeddings_.unsqueeze(0).repeat(batch,1,1),
+                "boxes": boxes_.unsqueeze(0).repeat(batch, 1, 1),
+                "masks": masks_.unsqueeze(0).repeat(batch, 1),
+                "text_masks": text_masks_.unsqueeze(0).repeat(batch, 1) * complete_mask(meta['instance_meta'][i].get("text_mask"), max_objs),
+                "text_embeddings": text_embeddings_.unsqueeze(0).repeat(batch, 1, 1),
+                'polygons': polygons_embeddings_.unsqueeze(0).repeat(batch, 1, 1),
+                'scribbles': scribbles_embeddings_.unsqueeze(0).repeat(batch, 1, 1),
+                'segs': segs_embeddings_.unsqueeze(0).repeat(batch, 1, 1, 1),
+                'points': points_embeddings_.unsqueeze(0).repeat(batch, 1, 1),
             })
             if use_masked_att:
                 att_masks_ = torch.zeros(max_objs, image_size, image_size)
                 att_masks_[0] = att_masks[i]
-                out["instance_meta"][i]["att_masks"] = att_masks_.unsqueeze(0).repeat(batch,1,1,1)
+                out["instance_meta"][i]["att_masks"] = att_masks_.unsqueeze(0).repeat(batch, 1, 1, 1)
 
     if use_masked_att:
-        out["att_masks"] = att_masks.unsqueeze(0).repeat(batch,1,1,1)
-    return batch_to_device(out, device) 
+        out["att_masks"] = att_masks.unsqueeze(0).repeat(batch, 1, 1, 1)
+    return batch_to_device(out, device)
 
 
 @torch.no_grad()

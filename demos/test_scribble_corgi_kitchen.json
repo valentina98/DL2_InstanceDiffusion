@@ -1,0 +1,60 @@
+{
+    "caption": "Cute Corgi at table in a white living room with plants and painting on the wall. A chocolate cake is on the table. morning light. high quality. professional photo.",
+    "width": 512,
+    "height": 512,
+    "annos": [
+      {
+        "scribble": [
+            160, 120, 170, 90, 190, 110, 350, 130, 230, 150,
+            250, 170, 270, 190, 290, 210, 310, 230, 330, 250,
+            310, 270, 290, 290, 270, 310, 330, 330, 230, 350,
+            210, 330, 190, 310, 170, 290, 150, 270, 180, 250
+        ],
+        "category_name": "dog",
+        "caption": "a Corgi sitting in front of a cupcake"
+      },
+      {
+        "scribble": [
+          280, 190, 320, 200, 350, 350, 290, 300, 300, 310
+        ],
+        "category_name": "mouth",
+        "caption": "Corgi's mouth and tongue"
+      },
+      {
+        "scribble": [
+          100, 310, 130, 340
+        ],
+        "category_name": "paw",
+        "caption": "a white paw on a table"
+      },
+      {
+        "scribble": [
+          310, 350, 330, 360
+        ],
+        "category_name": "paw",
+        "caption": "a white paw on a table"
+      },
+      {
+        "scribble": [
+          220, 55, 210, 130
+        ],
+        "category_name": "ear",
+        "caption": "ear"
+      },
+      {
+        "scribble": [
+          290, 75, 280, 105
+        ],
+        "category_name": "ear",
+        "caption": "ear"
+      },
+      {
+        "scribble": [
+          160, 60, 160, 120, 250, 120, 250, 180
+        ],
+        "category_name": "head",
+        "caption": "Corgi head"
+      }
+    ]
+  }
+  

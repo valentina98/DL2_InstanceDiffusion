@@ -1,0 +1,19 @@
+{
+    "caption": "Cute Corgi at table in a white living room with plants and painting on the wall. A chocolate cake is on the table. morning light. high quality. professional photo.",
+    "width": 512,
+    "height": 512,
+    "annos": [
+      {
+        "scribble": [
+          160, 120, 170, 90, 190, 110, 350, 130, 230, 150,
+          250, 170, 270, 190, 290, 210, 310, 230, 330, 250,
+          310, 270, 290, 290, 270, 310, 330, 330, 230, 350,
+          210, 330, 190, 310, 170, 290, 150, 270, 180, 250
+        ],
+        "category_name": "dog",
+        "caption": "a Corgi sitting in front of a cupcake",
+        "bbox": [95, 54, 312, 316]
+      }
+    ]
+  }
+  
