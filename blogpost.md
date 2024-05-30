@@ -193,7 +193,7 @@ Therefore, the enhanced capabilities of InstanceDiffusion come with significant 
 
 
 
-Finally, the exploration of these instance attributes in the original paper is quiet limited.
+Finally, the exploration of these instance attributes in the original paper is quite limited.
 
 
 
@@ -293,12 +293,11 @@ We used bounding boxes to generate images featuring an apple and a pear, positio
   <img src="./output_tests/gc7.5-seed0-alpha0.8/189_xl_s0.4_n20.png" alt="Merged fruits" width="30%" style="margin: 0 1%;"/>
 </p>
 
-**Figure 2** Images of a vase and flower using bounding boxes. Flower placement is incorrect due to perspective cues (bottom), despite specifying the flower should be in front.
+**Figure 2**  Images of an apple and pear using overlapping bounding boxes. The model struggles with correct placement, often blending the two fruits.
 
 #### Test 3
 
 We used bounding boxes to define the positions of a vase, a flower and a table. We explicitly specified in the prompt that the flower should be in the front.
-
 
 <p style="text-align: center;">
   <img src="./output_tests/gc7.5-seed0-alpha0.8/204_inputs.png" alt="Vase and flower bounding boxes" width="35%" style="margin: 0 1%;"/>
@@ -307,8 +306,7 @@ We used bounding boxes to define the positions of a vase, a flower and a table. 
   <img src="./output_tests/gc7.5-seed0-alpha0.8/210_xl_s0.4_n20.png" alt="Vase behind a flower" width="35%" style="margin: 0 1%;"/>
 </p>
 
-
-**Figure 3** Images of an apple and pear using overlapping bounding boxes. The model struggles with correct placement, often blending the two fruits.
+**Figure 3** Images of a vase and flower using bounding boxes. Flower placement is incorrect due to perspective cues (bottom), despite specifying the flower should be in front.
 
 #### Test 4
 
